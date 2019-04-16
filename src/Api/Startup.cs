@@ -1,0 +1,65 @@
+using HotChocolate;
+using HotChocolate.AspNetCore;
+using HotChocolate.Execution;
+using HotChocolate.Execution.Configuration;
+using HotChocolate.Subscriptions;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using UltimateTicTacToe.Api.ErrorFilters;
+using UltimateTicTacToe.Api.Types;
+using UltimateTicTacToe.Data;
+using UltimateTicTacToe.Domain;
+
+namespace UltimateTicTacToe.Api
+{
+    public class Startup
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDataServices(Configuration);
+            services.AddDomainServices();
+
+            //services.AddInMemorySubscriptionProvider();
+
+            var schema = Schema.Create(c =>
+            {
+                //GraphQL Types
+                c.RegisterQueryType<QueryType>();
+                c.RegisterMutationType<MutationType>();
+                // c.RegisterSubscriptionType<SubscriptionType>();
+                c.RegisterExtendedScalarTypes();
+
+                //Custom Types
+                c.RegisterType<GameType>();
+            });
+
+            services.AddGraphQL(schema.MakeExecutable(c =>
+                c.UseDefaultPipeline(new QueryExecutionOptions
+                    {
+                        TracingPreference = TracingPreference.Always,
+                    })
+                    .AddCustomErrorFilters()));
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseWebSockets()
+                .UseGraphQL()
+                .UsePlayground();
+        }
+    }
+}
