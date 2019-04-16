@@ -19,7 +19,7 @@ namespace UltimateTicTacToe.Api.Types
                 .Type<NonNullType<ListType<NonNullType<MoveType>>>>()
                 .Resolver(async r =>
                 {
-                    Guid gameId = r.Parent<Game>().Id;
+                    string gameId = r.Parent<Game>().Id;
                     IMoveRepository moveRepository = r.Service<IMoveRepository>();
 
                     return await moveRepository.GetMovesForGame(gameId, r.RequestAborted);

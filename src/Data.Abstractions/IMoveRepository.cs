@@ -8,7 +8,7 @@ namespace UltimateTicTacToe.Data.Abstractions
 {
     public interface IMoveRepository
     {
-        Task<List<Move>> GetMovesForGame(Guid gameId, CancellationToken cancellationToken);
+        Task<List<Move>> GetMovesForGame(string gameId, CancellationToken cancellationToken);
         Task Save(Move move, CancellationToken cancellationToken);
     }
 }

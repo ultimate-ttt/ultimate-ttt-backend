@@ -18,7 +18,7 @@ namespace UltimateTicTacToe.Data
             _moveCollection = moveCollection;
         }
 
-        public async Task<List<Move>> GetMovesForGame(Guid gameId,
+        public async Task<List<Move>> GetMovesForGame(string gameId,
             CancellationToken cancellationToken)
         {
             return await _moveCollection

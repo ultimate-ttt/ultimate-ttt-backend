@@ -22,7 +22,7 @@ namespace UltimateTicTacToe.Domain
 
         public async Task<Game> CreateGame(CancellationToken cancellationToken)
         {
-            Game g = new Game {Id = Guid.NewGuid(), Winner = null, FinishedAt = null,};
+            Game g = new Game {Id = ReadableIdGenerator.NewId(), Winner = null, FinishedAt = null,};
 
             await _gameRepository.Save(g, cancellationToken);
 
@@ -47,7 +47,8 @@ namespace UltimateTicTacToe.Domain
             };
         }
 
-        private async Task<int> GetNextMoveNumber(Guid gameId, CancellationToken cancellationToken)
+        private async Task<int> GetNextMoveNumber(string gameId, CancellationToken
+        cancellationToken)
         {
             List<Move> moves = await _moveRepository.GetMovesForGame(gameId, cancellationToken);
 
