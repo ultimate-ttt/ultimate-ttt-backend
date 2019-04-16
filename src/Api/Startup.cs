@@ -46,6 +46,7 @@ namespace UltimateTicTacToe.Api
                 c.UseDefaultPipeline(new QueryExecutionOptions
                     {
                         TracingPreference = TracingPreference.Always,
+                        IncludeExceptionDetails = true
                     })
                     .AddCustomErrorFilters()));
         }

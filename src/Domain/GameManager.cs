@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace UltimateTicTacToe.Domain
             return g;
         }
 
-        public async Task<bool> Move(Move m, CancellationToken cancellationToken)
+        public async Task<MoveResult> Move(Move m, CancellationToken cancellationToken)
         {
             m.MoveNumber = await GetNextMoveNumber(m.GameId, cancellationToken);
 
@@ -38,13 +39,19 @@ namespace UltimateTicTacToe.Domain
                 await _moveRepository.Save(m, cancellationToken);
             }
 
-            return isValidMove;
+            return new MoveResult
+            {
+                IsValid = isValidMove,
+                Message = "", // TODO: make some nice messages here
+                Move = m
+            };
         }
 
         private async Task<int> GetNextMoveNumber(Guid gameId, CancellationToken cancellationToken)
         {
-            var moves = await _moveRepository.GetMovesForGame(gameId, cancellationToken);
-            return moves.Max(m => m.MoveNumber) + 1;
+            List<Move> moves = await _moveRepository.GetMovesForGame(gameId, cancellationToken);
+
+            return moves.Count + 1;
         }
 
         private async Task<bool> IsValidMove(Move m, CancellationToken cancellationToken)
