@@ -4,6 +4,7 @@ namespace UltimateTicTacToe.Abstractions
 {
     public class Move
     {
+        public string Id => $"{GameId}-{MoveNumber}";
         public Guid GameId { get; set; }
         public Position BoardPosition { get; set; }
         public Position TilePosition { get; set; }
