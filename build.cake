@@ -43,23 +43,35 @@ Task("Build")
 });
 
 Task("Test")
-    .IsDependentOn("Build")
     .Does(() =>
+{
+    var buildSettings = new DotNetCoreBuildSettings
     {
-        var projects = GetFiles("./src/**/*.Tests.csproj");
-        foreach(var project in projects)
-        {
-            Information("Testing project " + project);
-            DotNetCoreTest(
-                project.ToString(),
-                new DotNetCoreTestSettings()
-                {
-                    Configuration = configuration,
-                    NoBuild = true,
-                    NoRestore = true,
-                });
-        }
-    });
+        Configuration = "Debug"
+    };
+
+    int i = 0;
+    var testSettings = new DotNetCoreTestSettings
+    {
+        Configuration = "Debug",
+        ResultsDirectory = $"./{testOutputDir}",
+        Logger = "trx",
+        NoRestore = true,
+        NoBuild = true,
+        ArgumentCustomization = args => args
+            .Append("/p:CollectCoverage=true")
+            .Append("/p:Exclude=[xunit.*]*")
+            .Append("/p:CoverletOutputFormat=opencover")
+            .Append($"/p:CoverletOutput=\"../../{testOutputDir}/full_{i++}\" --blame")
+    };
+
+    DotNetCoreBuild("./src", buildSettings);
+
+    foreach(var file in GetFiles("./src/**/*.Tests.csproj"))
+    {
+        DotNetCoreTest(file.FullPath, testSettings);
+    }
+});
 
 Task("PublishApi")
     .IsDependentOn("Clean")
