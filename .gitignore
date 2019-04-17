@@ -583,3 +583,5 @@ $RECYCLE.BIN/
 
 # Build related
 tools/**
+testoutput/**
+artifacts/**
