@@ -49,13 +49,9 @@ Task("Build")
 });
 
 Task("Test")
+    .IsDependentOn("Build")
     .Does(() =>
 {
-    var buildSettings = new DotNetCoreBuildSettings
-    {
-        Configuration = "Debug"
-    };
-
     int i = 0;
     var testSettings = new DotNetCoreTestSettings
     {
@@ -70,8 +66,6 @@ Task("Test")
             .Append("/p:CoverletOutputFormat=opencover")
             .Append($"/p:CoverletOutput=\"../../{testOutputDir}/full_{i++}\" --blame")
     };
-
-    DotNetCoreBuild("./src", buildSettings);
 
     foreach(var file in GetFiles("./src/**/*.Tests.csproj"))
     {
