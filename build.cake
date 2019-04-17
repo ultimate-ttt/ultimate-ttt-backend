@@ -11,6 +11,12 @@ var testOutputDir = Directory("./testoutput");
 var publishOutputDir = Directory("./artifacts");
 var sourceDir = Directory("./src");
 
+var version = EnvironmentVariable<string>("Version", default(string));
+
+var sonarLogin = EnvironmentVariable<string>("Sonar_Token", default(string));
+var sonarPrKey = EnvironmentVariable<string>("Sonar_Pr_Key", default(string));
+var sonarBranch = EnvironmentVariable<string>("Sonar_Branch", default(string));
+
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
@@ -90,11 +96,59 @@ Task("PublishApi")
       DotNetCorePublish("./src/Api/Api.csproj", settings);
     });
 
-Task("PR")
-    .IsDependentOn("Build")
-    .IsDependentOn("Test");
+Task("SonarBegin")
+    .Does(() =>
+{
+    SonarBegin(new SonarBeginSettings
+    {
+        Url = "https://sonarcloud.io",
+        Login = sonarLogin,
+        Key = "ultimate-ttt-backend",
+        Organization = "ultimate-ttt",
+        VsTestReportsPath = "**/*.trx",
+        OpenCoverReportsPath = "**/*.opencover.xml",
+        Exclusions = "**/*.js,**/*.html,**/*.css",
+        Verbose = false,
+        Version = version,
+        ArgumentCustomization = args => {
+            var a = args;
 
-Task("Default")
-    .IsDependentOn("Build");
+            if(!string.IsNullOrEmpty(sonarPrKey))
+            {
+                a = a.Append($"/d:sonar.pullrequest.key=\"{sonarPrKey}\"");
+                a = a.Append($"/d:sonar.pullrequest.branch=\"{sonarBranch}\"");
+                a = a.Append($"/d:sonar.pullrequest.base=\"master\"");
+                a = a.Append($"/d:sonar.pullrequest.provider=\"github\"");
+                a = a.Append($"/d:sonar.pullrequest.github.repository=\"ultimate-ttt/ultimate-ttt-backend\"");
+            }
+
+            return a;
+        }
+    });
+});
+
+Task("SonarEnd")
+    .Does(() =>
+{
+    SonarEnd(new SonarEndSettings
+    {
+        Login = sonarLogin,
+    });
+});
+
+
+Task("PR")
+    .IsDependentOn("SonarBegin")
+    .IsDependentOn("Build")
+    .IsDependentOn("Test")
+    .IsDependentOn("SonarEnd");
+
+Task("Release")
+    .IsDependentOn("SonarBegin")
+    .IsDependentOn("Build")
+    .IsDependentOn("Test")
+    .IsDependentOn("PublishApi")
+    .IsDependentOn("SonarEnd");
+
 
 RunTarget(target);
