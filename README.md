@@ -9,4 +9,11 @@
 TODO
 
 # Examples
-TOOD
+
+## Create a new game
+
+```graphql
+mutation CreateNewGame{
+
+}
+```
