@@ -5,8 +5,18 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ultimate-ttt-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=ultimate-ttt-backend)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ultimate-ttt-backend&metric=coverage)](https://sonarcloud.io/dashboard?id=ultimate-ttt-backend)
 
+# Public API
+TODO Visit [#10](https://github.com/ultimate-ttt/ultimate-ttt-backend/issues/10) to see Progress
+
 # Local Testing
-TODO
+It is possible to run the Api on your local computer.
+
+**Prerequisites**
+- Docker is installed
+
+**Setup**
+
+1. 
 
 # Examples
 
@@ -17,3 +27,9 @@ mutation CreateNewGame{
 
 }
 ```
+
+## Make a Move
+
+## Get game status
+
+## Live updates
