@@ -58,7 +58,7 @@ Task("Test")
     int i = 0;
     var testSettings = new DotNetCoreTestSettings
     {
-        Configuration = "Debug",
+        Configuration = configuration,
         ResultsDirectory = $"./{testOutputDir}",
         Logger = "trx",
         NoRestore = true,
