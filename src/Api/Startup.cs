@@ -45,8 +45,9 @@ namespace UltimateTicTacToe.Api
             services.AddGraphQL(schema.MakeExecutable(c =>
                 c.UseDefaultPipeline(new QueryExecutionOptions
                     {
-                        TracingPreference = TracingPreference.Always,
-                        IncludeExceptionDetails = true
+#if DEBUG
+                        TracingPreference = TracingPreference.Always, IncludeExceptionDetails = true
+#endif
                     })
                     .AddCustomErrorFilters()));
         }
