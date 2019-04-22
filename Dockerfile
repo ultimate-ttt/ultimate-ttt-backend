@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:2.1
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app2
 COPY artifacts ./
 
