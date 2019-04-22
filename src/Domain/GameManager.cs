@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UltimateTicTacToe.Abstractions;
@@ -16,8 +15,8 @@ namespace UltimateTicTacToe.Domain
 
         public GameManager(IGameRepository gameRepository, IMoveRepository moveRepository)
         {
-            _gameRepository = gameRepository;
-            _moveRepository = moveRepository;
+            _gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
+            _moveRepository = moveRepository ?? throw new ArgumentNullException(nameof(moveRepository));
         }
 
         public async Task<Game> CreateGame(CancellationToken cancellationToken)
@@ -48,7 +47,7 @@ namespace UltimateTicTacToe.Domain
         }
 
         private async Task<int> GetNextMoveNumber(string gameId, CancellationToken
-        cancellationToken)
+            cancellationToken)
         {
             List<Move> moves = await _moveRepository.GetMovesForGame(gameId, cancellationToken);
 
