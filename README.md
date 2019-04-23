@@ -33,3 +33,5 @@ mutation CreateNewGame{
 ## Get game status
 
 ## Live updates
+
+Subscriptions are not implemented yet. Visit [#5](https://github.com/ultimate-ttt/ultimate-ttt-backend/issues/5) for more information.
