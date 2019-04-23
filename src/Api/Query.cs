@@ -10,7 +10,7 @@ namespace UltimateTicTacToe.Api
     public class Query
     {
         public async Task<Game> GetGame(
-            Guid id,
+            string id,
             [Service] IGameRepository gameRepository,
             CancellationToken cancellationToken
             )

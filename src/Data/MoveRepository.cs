@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Data.Abstractions;
 
@@ -10,17 +11,26 @@ namespace UltimateTicTacToe.Data
 {
     public class MoveRepository : IMoveRepository
     {
-        private readonly List<Move> _moves = new List<Move>();
+        private readonly IMongoCollection<Move> _moveCollection;
 
-        public async Task<List<Move>> GetMovesForGame(Guid gameId,
+        public MoveRepository(IMongoCollection<Move> moveCollection)
+        {
+            _moveCollection = moveCollection;
+        }
+
+        public async Task<List<Move>> GetMovesForGame(string gameId,
             CancellationToken cancellationToken)
         {
-            return _moves.Where(m => m.GameId.Equals(gameId)).ToList();
+            return await _moveCollection
+                .AsQueryable()
+                .Where(m => m.GameId.Equals(gameId))
+                .ToListAsync
+                    (cancellationToken);
         }
 
         public async Task Save(Move move, CancellationToken cancellationToken)
         {
-            _moves.Add(move);
+            await _moveCollection.InsertOneAsync(move, cancellationToken: cancellationToken);
         }
     }
 }

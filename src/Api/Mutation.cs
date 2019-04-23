@@ -16,7 +16,7 @@ namespace UltimateTicTacToe.Api
             return await gameManager.CreateGame(cancellationToken);
         }
 
-        public async Task<bool> Move(
+        public async Task<MoveResult> Move(
             MoveInput input,
             [Service] IGameManager gameManager,
             CancellationToken cancellationToken

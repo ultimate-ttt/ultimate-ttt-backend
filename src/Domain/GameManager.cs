@@ -1,5 +1,5 @@
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UltimateTicTacToe.Abstractions;
@@ -15,37 +15,42 @@ namespace UltimateTicTacToe.Domain
 
         public GameManager(IGameRepository gameRepository, IMoveRepository moveRepository)
         {
-            _gameRepository = gameRepository;
-            _moveRepository = moveRepository;
+            _gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
+            _moveRepository = moveRepository ?? throw new ArgumentNullException(nameof(moveRepository));
         }
 
         public async Task<Game> CreateGame(CancellationToken cancellationToken)
         {
-            Game g = new Game
-            {
-                Id = Guid.NewGuid(),
-                Winner = null,
-                FinishedAt = null,
-            };
+            Game g = new Game {Id = ReadableIdGenerator.NewId(), Winner = null, FinishedAt = null,};
 
             await _gameRepository.Save(g, cancellationToken);
 
             return g;
         }
 
-        public async Task<bool> Move(Move m, CancellationToken cancellationToken)
+        public async Task<MoveResult> Move(Move m, CancellationToken cancellationToken)
         {
             m.MoveNumber = await GetNextMoveNumber(m.GameId, cancellationToken);
 
-            await _moveRepository.Save(m, cancellationToken);
+            bool isValidMove = await IsValidMove(m, cancellationToken);
+            if (isValidMove)
+            {
+                await _moveRepository.Save(m, cancellationToken);
+            }
 
-            return await IsValidMove(m,cancellationToken);
+            return new MoveResult
+            {
+                IsValid = isValidMove,
+                Move = m
+            };
         }
 
-        private async Task<int> GetNextMoveNumber(Guid gameId, CancellationToken cancellationToken)
+        private async Task<int> GetNextMoveNumber(string gameId, CancellationToken
+            cancellationToken)
         {
-            var moves = await _moveRepository.GetMovesForGame(gameId, cancellationToken);
-            return moves.Max(m => m.MoveNumber) + 1;
+            List<Move> moves = await _moveRepository.GetMovesForGame(gameId, cancellationToken);
+
+            return moves.Count + 1;
         }
 
         private async Task<bool> IsValidMove(Move m, CancellationToken cancellationToken)

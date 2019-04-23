@@ -58,7 +58,7 @@ Task("Test")
     int i = 0;
     var testSettings = new DotNetCoreTestSettings
     {
-        Configuration = "Debug",
+        Configuration = configuration,
         ResultsDirectory = $"./{testOutputDir}",
         Logger = "trx",
         NoRestore = true,
@@ -133,6 +133,9 @@ Task("SonarEnd")
     });
 });
 
+Task("Default")
+  .IsDependentOn("Build")
+  .IsDependentOn("Test");
 
 Task("PR")
     .IsDependentOn("SonarBegin")
