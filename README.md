@@ -9,14 +9,30 @@
 TODO Visit [#10](https://github.com/ultimate-ttt/ultimate-ttt-backend/issues/10) to see Progress
 
 # Local Testing
-It is possible to run the Api on your local computer.
+
+## Using the latest release of the Docker image
+
+To use the latest release for local testing run the following steps. dotnet doesn't need to be installed on your local computer.
 
 **Prerequisites**
 - Docker is installed
 
 **Setup**
 
-1. 
+1. Open command-line and navigate to the root of the repository
+2. run `docker-compose up`
+3. Access the API from your browser [http://localhost:5003/playground](http://localhost:5003/playground)
+
+## using the dotnet command-line tools
+
+**Prerequisites**
+- dotnet core 2.1 SDK installed
+  
+**Setup**
+
+1. Open command-line and navigate to the root of the repository
+2. Open `/src/Api/appsettings.json` and verify that `Database:ConnectionString` has a valid Connectionstring for a MongoDB according to your system setup
+3. run `cd ./src/Api; dotnet watch run`
 
 # Examples
 
