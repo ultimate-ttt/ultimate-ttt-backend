@@ -102,6 +102,47 @@ namespace Domain.Tests
             result.Move.MoveNumber.Should().Be(1);
         }
 
+        [Fact]
+        public async Task Move_ThirdMove_CorrectMoveNumber()
+        {
+            // arrange
+            Mock<IMoveRepository> moveRepositoryMock = new Mock<IMoveRepository>();
+            moveRepositoryMock
+            .Setup(m => m.GetMovesForGame(It.IsAny<string>(), CancellationToken.None))
+            .Returns(() => Task.FromResult(
+                new List<Move>(){
+                    new Move
+                    {
+                        GameId = "abc",
+                        BoardPosition = new Position { X = 0, Y = 0 },
+                        TilePosition = new Position { X = 0, Y = 0 },
+                        Player = Player.Cross
+                    },
+                    new Move
+                    {
+                        GameId = "abc",
+                        BoardPosition = new Position { X = 0, Y = 0 },
+                        TilePosition = new Position { X = 1, Y = 0 },
+                        Player = Player.Circle
+                    }
+                }
+            ))
+            .Verifiable();
+
+            var gameManager = new GameManager(Mock.Of<IGameRepository>(), moveRepositoryMock.Object);
+
+            // act
+            var result = await gameManager.Move(new Move
+            {
+                GameId = "abc",
+                BoardPosition = new Position { X = 1, Y = 0 },
+                TilePosition = new Position { X = 0, Y = 0 },
+                Player = Player.Cross
+            }, CancellationToken.None);
+
+            // assert
+            result.Move.MoveNumber.Should().Be(3);
+        }
 
     }
 }
