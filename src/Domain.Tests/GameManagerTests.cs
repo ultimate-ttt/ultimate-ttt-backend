@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
+using Snapshooter.Xunit;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Data.Abstractions;
 using UltimateTicTacToe.Domain;
@@ -142,6 +143,61 @@ namespace Domain.Tests
 
             // assert
             result.Move.MoveNumber.Should().Be(3);
+        }
+
+        [Fact]
+        public async Task Move_ValidMove_SavesToMoveRepository()
+        {
+            // arrange
+            Mock<IMoveRepository> moveRepositoryMock = new Mock<IMoveRepository>();
+            moveRepositoryMock
+            .Setup(m => m.GetMovesForGame(It.IsAny<string>(), CancellationToken.None))
+            .Returns(() => Task.FromResult(new List<Move>()))
+            .Verifiable();
+            moveRepositoryMock
+            .Setup(m => m.Save(It.IsAny<Move>(), CancellationToken.None))
+            .Returns(Task.CompletedTask)
+            .Verifiable();
+
+            var gameManager = new GameManager(Mock.Of<IGameRepository>(), moveRepositoryMock.Object);
+
+            // act
+            var result = await gameManager.Move(new Move
+            {
+                GameId = "abc",
+                BoardPosition = new Position { X = 1, Y = 0 },
+                TilePosition = new Position { X = 0, Y = 0 },
+                Player = Player.Cross
+            }, CancellationToken.None);
+
+            // assert
+            moveRepositoryMock
+                .Verify(m => m.Save(It.IsAny<Move>(), CancellationToken.None), Times.Once);
+        }
+
+        [Fact]
+        public async Task Move_ValidMove_CorrectResult()
+        {
+            // arrange
+            Mock<IMoveRepository> moveRepositoryMock = new Mock<IMoveRepository>();
+            moveRepositoryMock
+            .Setup(m => m.GetMovesForGame(It.IsAny<string>(), CancellationToken.None))
+            .Returns(() => Task.FromResult(new List<Move>()))
+            .Verifiable();
+
+            var gameManager = new GameManager(Mock.Of<IGameRepository>(), moveRepositoryMock.Object);
+
+            // act
+            var result = await gameManager.Move(new Move
+            {
+                GameId = "abc",
+                BoardPosition = new Position { X = 0, Y = 0 },
+                TilePosition = new Position { X = 0, Y = 0 },
+                Player = Player.Cross
+            }, CancellationToken.None);
+
+            // assert
+            Snapshot.Match(result);
         }
 
     }
