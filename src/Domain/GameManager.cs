@@ -41,7 +41,6 @@ namespace UltimateTicTacToe.Domain
             return new MoveResult
             {
                 IsValid = isValidMove,
-                Message = "", // TODO: make some nice messages here
                 Move = m
             };
         }
