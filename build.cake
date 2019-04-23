@@ -133,6 +133,9 @@ Task("SonarEnd")
     });
 });
 
+Task("Default")
+  .IsDependentOn("Build")
+  .IsDependentOn("Test");
 
 Task("PR")
     .IsDependentOn("SonarBegin")
