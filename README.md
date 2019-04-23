@@ -40,13 +40,51 @@ To use the latest release for local testing run the following steps. dotnet does
 
 ```graphql
 mutation CreateNewGame{
-
+   createGame{
+    id
+  }
 }
 ```
 
 ## Make a Move
 
+```graphql
+mutation Move{
+  move(
+    input: {
+      gameId: "abcdef"
+      boardPosition: {x: 0, y:0}
+      tilePosition: {x: 0, y:0}
+      player:CROSS
+    }
+  ){
+    isValid
+  }
+}
+```
+
 ## Get game status
+
+```graphql
+query GameStatus{
+  game(id: "abcdef"){
+    id
+    moves{
+      moveNumber
+      boardPosition{
+        x
+        y
+      }
+      tilePosition{
+        x
+        y
+      }
+      player
+    }
+    winner
+  }
+}
+```
 
 ## Live updates
 
