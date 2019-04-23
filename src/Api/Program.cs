@@ -7,7 +7,6 @@ namespace UltimateTicTacToe.Api
 {
     public static class Program
     {
-
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
@@ -26,7 +25,10 @@ namespace UltimateTicTacToe.Api
             IConfigurationBuilder builder)
         {
             builder.SetBasePath(Directory.GetCurrentDirectory());
-            builder.AddJsonFile($"appsettings.json", optional: false, reloadOnChange: true);
+#if DEBUG
+            builder.AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true);
+#endif
+            builder.AddEnvironmentVariables();
         }
     }
 }

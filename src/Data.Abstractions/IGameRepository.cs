@@ -7,7 +7,7 @@ namespace UltimateTicTacToe.Data.Abstractions
 {
     public interface IGameRepository
     {
-        Task<Game> GetById(Guid id, CancellationToken cancellationToken);
+        Task<Game> GetById(string id, CancellationToken cancellationToken);
 
         Task Save(Game game, CancellationToken cancellationToken);
     }

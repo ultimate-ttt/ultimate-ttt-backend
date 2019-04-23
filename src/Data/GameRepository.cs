@@ -17,8 +17,7 @@ namespace UltimateTicTacToe.Data
             _gameCollection = gameCollection;
         }
 
-
-        public async Task<Game> GetById(Guid id, CancellationToken cancellationToken)
+        public async Task<Game> GetById(string id, CancellationToken cancellationToken)
         {
             return await _gameCollection
                 .AsQueryable()

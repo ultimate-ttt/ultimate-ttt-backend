@@ -6,7 +6,7 @@ namespace UltimateTicTacToe.Api
 {
     public class MoveInput
     {
-        public Guid GameId { get; set; }
+        public string GameId { get; set; }
         public Position BoardPosition { get; set; }
         public Position TilePosition { get; set; }
         public Player Player { get; set; }
