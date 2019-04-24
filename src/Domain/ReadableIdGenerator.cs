@@ -4,7 +4,7 @@ namespace UltimateTicTacToe.Domain
 {
     public static class ReadableIdGenerator
     {
-        private static char[] Characters = "jfdk".ToCharArray();
+        private static string[] Characters = new string[]{"🧙"};
 
         public static string NewId()
         {
