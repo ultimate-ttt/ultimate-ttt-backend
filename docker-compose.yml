@@ -1,0 +1,16 @@
+version: '3'
+services:
+  api:
+    image: "ultimatettt/ultimate-ttt-server:latest"
+    ports:
+     - "5023:80"
+    depends_on:
+      - 'mongo'
+    environment:
+     - Database:Name=ultimate-ttt
+     - Database:ConnectionString=mongodb://mongo:27018/
+
+  mongo:
+    image: 'mongo:latest'
+    ports:
+      - '27018:27017'
