@@ -8,7 +8,7 @@ services:
       - 'mongo'
     environment:
      - Database:Name=ultimate-ttt
-     - Database:ConnectionString=mongodb://mongo:27018/
+     - Database:ConnectionString=mongodb://mongo/
 
   mongo:
     image: 'mongo:latest'
