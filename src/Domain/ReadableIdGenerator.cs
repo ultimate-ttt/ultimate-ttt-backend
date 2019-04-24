@@ -4,7 +4,7 @@ namespace UltimateTicTacToe.Domain
 {
     public static class ReadableIdGenerator
     {
-        private const string Characters = "ABCDEFGHIJKLMNOPQRSTUVQXYZabcdefghijklmnopqrstuvwxyz";
+        private const string Characters = "ABCDEFGHIJKLMNOPQRSTUVQXYZabcdefghijklmnopqrstuvwxyz123456789";
         private const int IdLength = 7;
 
         public static string NewId()
