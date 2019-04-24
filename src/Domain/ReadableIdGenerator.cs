@@ -2,11 +2,24 @@ using System;
 
 namespace UltimateTicTacToe.Domain
 {
-    public class ReadableIdGenerator
+    public static class ReadableIdGenerator
     {
+        private const string Characters = "ABCDEFGHIJKLMNOPQRSTUVQXYZabcdefghijklmnopqrstuvwxyz123456789";
+        private const int IdLength = 7;
+
         public static string NewId()
         {
-            return Guid.NewGuid().ToString("N");
+            Random random = new Random();
+            int characterAmount = Characters.Length;
+            char[] id = new char[IdLength];
+
+            for (int i = 0; i < IdLength; i++)
+            {
+                int index = random.Next(0,characterAmount);
+                id[i] = Characters[index];
+            }
+
+            return new string(id);
         }
     }
 }
