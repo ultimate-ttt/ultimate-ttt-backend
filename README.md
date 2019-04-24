@@ -21,7 +21,7 @@ To use the latest release for local testing run the following steps. dotnet does
 
 1. Open command-line and navigate to the root of the repository
 2. run `docker-compose up`
-3. Access the API from your browser [http://localhost:5003/playground](http://localhost:5003/playground)
+3. Access the API from your browser [http://localhost:5023/playground](http://localhost:5023/playground)
 
 ## using the dotnet command-line tools
 
