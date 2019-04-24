@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Snapshooter.Xunit;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Data.Abstractions;
 using UltimateTicTacToe.Domain;
@@ -197,7 +196,15 @@ namespace Domain.Tests
             }, CancellationToken.None);
 
             // assert
-            Snapshot.Match(result);
+            result.IsValid.Should().BeTrue();
+            result.Move.Id.Should().Be("abc-1");
+            result.Move.GameId.Should().Be("abc");
+            result.Move.BoardPosition.X.Should().Be(0);
+            result.Move.BoardPosition.Y.Should().Be(0);
+            result.Move.TilePosition.X.Should().Be(0);
+            result.Move.TilePosition.Y.Should().Be(0);
+            result.Move.Player.Should().Be(Player.Cross);
+            result.Move.MoveNumber.Should().Be(1);
         }
 
     }
