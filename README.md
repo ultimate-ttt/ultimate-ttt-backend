@@ -4,6 +4,7 @@
 [![Build Status](https://dev.azure.com/ultimate-ttt/ultimate-ttt/_apis/build/status/ultimate-ttt-Build-master?branchName=master)](https://dev.azure.com/ultimate-ttt/ultimate-ttt/_build/latest?definitionId=4&branchName=master)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ultimate-ttt-backend&metric=alert_status)](https://sonarcloud.io/dashboard?id=ultimate-ttt-backend)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ultimate-ttt-backend&metric=coverage)](https://sonarcloud.io/dashboard?id=ultimate-ttt-backend)
+[![GitHub release](https://img.shields.io/github/release/ultimate-ttt/ultimate-ttt-backend.svg)](https://github.com/ultimate-ttt/ultimate-ttt-backend/releases)
 [![Docker Pulls](https://img.shields.io/docker/pulls/ultimatettt/ultimate-ttt-server.svg)](https://hub.docker.com/r/ultimatettt/ultimate-ttt-server)
 
 # Public API
