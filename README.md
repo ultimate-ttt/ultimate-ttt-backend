@@ -9,7 +9,7 @@
 # Public API
 TODO Visit [#10](https://github.com/ultimate-ttt/ultimate-ttt-backend/issues/10) to see Progress
 
-# Local Testing
+# Running the Api on your system
 
 ## Using the latest release of the Docker image
 
@@ -24,16 +24,34 @@ To use the latest release for local testing run the following steps. dotnet does
 2. run `docker-compose up`
 3. Access the API from your browser [http://localhost:5023/playground](http://localhost:5023/playground)
 
-## using the dotnet command-line tools
+## Work on the code
+
+If you work on the code you probably want to run the Api and check if your changes work as expected.
 
 **Prerequisites**
 - dotnet core 2.1 SDK installed
   
-**Setup**
+**Build and Test the Api**
+
+1. Open command-line and navigate to the root of the repository
+2. run `build .ps1` on a windows system or `build.sh` on linux
+
+Now the entire solution is built and the tests are executed.
+
+**Run the Api**
 
 1. Open command-line and navigate to the root of the repository
 2. Open `/src/Api/appsettings.json` and verify that `Database:ConnectionString` has a valid Connectionstring for a MongoDB according to your system setup
 3. run `cd ./src/Api; dotnet watch run`
+
+**Creating an new Image Version**
+
+After you finished developing you probably want to check if the changes behave correctly in the container environment. Therefore you can build the docker image locally.
+
+1. Open command-line and navigate to the root of the repository
+2. run `build.ps1 -target "PublishApi"` on a Windows system or `build.sh -target=PublishApi` on Linux. This build the Api in Release Mode
+3. run `docker build -t ultimatettt/ultimate-ttt-server:localtesting`. this creates a local image of the previously built api.
+4. run `docker-compose -f "docker-compose-localtesting.yml" up`. This starts the local testing image.
 
 # Examples
 
