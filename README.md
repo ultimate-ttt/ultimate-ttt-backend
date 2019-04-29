@@ -68,7 +68,7 @@ Now the entire solution is built and the tests are executed.
 After you finished developing you probably want to check if the changes behave correctly in the container environment. Therefore you can build the docker image locally.
 
 1. Open command-line and navigate to the root of the repository
-2. run `build.ps1 -target "PublishApi"` on a Windows system or `build.sh -target=PublishApi` on Linux. This build the Api in Release Mode
+2. run `Move_ValidMove_CorrectResult`. This build the Api in Release Mode
 3. run `docker build -t ultimatettt/ultimate-ttt-server:localtesting`. this creates a local image of the previously built api.
 4. run `docker-compose -f "docker-compose-localtesting.yml" up`. This starts the local testing image.
 
