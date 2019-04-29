@@ -30,6 +30,7 @@ namespace UltimateTicTacToe.Domain
 
         public async Task<MoveResult> Move(Move m, CancellationToken cancellationToken)
         {
+
             m.MoveNumber = await GetNextMoveNumber(m.GameId, cancellationToken);
 
             bool isValidMove = await IsValidMove(m, cancellationToken);
@@ -48,6 +49,8 @@ namespace UltimateTicTacToe.Domain
         private async Task<int> GetNextMoveNumber(string gameId, CancellationToken
             cancellationToken)
         {
+             // !DANGER: this will propably load the moves again. They will already be loaded by the validation!
+
             List<Move> moves = await _moveRepository.GetMovesForGame(gameId, cancellationToken);
 
             return moves.Count + 1;
