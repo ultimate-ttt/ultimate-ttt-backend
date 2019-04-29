@@ -53,7 +53,7 @@ This solution does not require Cake.Tool to be installed on your system. Sadly i
 **Build and Test the Api**
 
 1. Open command-line and navigate to the root of the repository
-2. run `\build.ps1`
+2. run `.\build.ps1`
 
 Now the entire solution is built and the tests are executed.
 
