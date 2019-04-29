@@ -17,7 +17,7 @@ TODO Visit [#10](https://github.com/ultimate-ttt/ultimate-ttt-backend/issues/10)
 To use the latest release for local testing run the following steps. dotnet doesn't need to be installed on your local computer.
 
 **Prerequisites**
-- Docker is installed
+- Docker is installed & running
 
 **Setup**
 
@@ -48,7 +48,7 @@ Now the entire solution is built and the tests are executed.
 
 ### Using Windows Powershell on Windows
   
-This solution does not require Cake.Tool to be installed on your system. Sadly it only works on windows.
+This solution does not require Cake.Tool to be installed on your system. Sadly it only works on Windows.
 
 **Build and Test the Api**
 
