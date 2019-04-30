@@ -58,11 +58,11 @@ Task("Test")
     int i = 0;
     var testSettings = new DotNetCoreTestSettings
     {
-        Configuration = configuration,
+        Configuration = "Debug",
         ResultsDirectory = $"./{testOutputDir}",
         Logger = "trx",
         NoRestore = true,
-        NoBuild = true,
+        NoBuild = false,
         ArgumentCustomization = args => args
             .Append("/p:CollectCoverage=true")
             .Append("/p:Exclude=[xunit.*]*")
