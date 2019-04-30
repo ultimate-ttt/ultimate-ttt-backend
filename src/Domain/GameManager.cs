@@ -32,6 +32,8 @@ namespace UltimateTicTacToe.Domain
 
         public async Task<MoveResult> Move(Move m, CancellationToken cancellationToken)
         {
+            // TODO: Validate if the m.GameId exists
+
             var result = await _moveValidator.ValidateMove(m, cancellationToken)
 
             if (result.IsValid)
