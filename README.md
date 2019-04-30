@@ -33,7 +33,7 @@ If you have done some work on the code you probably want to check if your change
 
 ### Using the Cake Tool
 
-This solution works on all operation system on which you can run dotnet core.
+This solution works on all operation systems on which you can run dotnet core.
 
 **Prerequisites**
   
@@ -48,7 +48,7 @@ Now the entire solution is built and the tests are executed.
 
 ### Using Windows Powershell on Windows
   
-This solution does not require Cake.Tool to be installed on your system. Sadly it only works on Windows.
+This solution does not require Cake.Tool to be installed on your system but it only works on Windows.
 
 **Build and Test the Api**
 
