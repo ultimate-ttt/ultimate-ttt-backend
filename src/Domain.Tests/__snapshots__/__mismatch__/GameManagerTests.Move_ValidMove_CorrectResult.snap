@@ -1,0 +1,17 @@
+﻿{
+  "IsValid": true,
+  "Move": {
+    "Id": "abc-0",
+    "GameId": "abc",
+    "BoardPosition": {
+      "X": 0,
+      "Y": 0
+    },
+    "TilePosition": {
+      "X": 0,
+      "Y": 0
+    },
+    "Player": "Cross",
+    "MoveNumber": 0
+  }
+}

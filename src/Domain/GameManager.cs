@@ -12,16 +12,18 @@ namespace UltimateTicTacToe.Domain
     {
         private readonly IGameRepository _gameRepository;
         private readonly IMoveRepository _moveRepository;
+        private readonly MoveValidator _moveValidator;
 
-        public GameManager(IGameRepository gameRepository, IMoveRepository moveRepository)
+        public GameManager(IGameRepository gameRepository, IMoveRepository moveRepository, MoveValidator moveValidator)
         {
             _gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
             _moveRepository = moveRepository ?? throw new ArgumentNullException(nameof(moveRepository));
+            _moveValidator = moveValidator ?? throw new ArgumentNullException(nameof(moveValidator));
         }
 
         public async Task<Game> CreateGame(CancellationToken cancellationToken)
         {
-            Game g = new Game {Id = ReadableIdGenerator.NewId(), Winner = null, FinishedAt = null,};
+            Game g = new Game { Id = ReadableIdGenerator.NewId(), Winner = null, FinishedAt = null, };
 
             await _gameRepository.Save(g, cancellationToken);
 
@@ -30,36 +32,14 @@ namespace UltimateTicTacToe.Domain
 
         public async Task<MoveResult> Move(Move m, CancellationToken cancellationToken)
         {
+            var result = await _moveValidator.ValidateMove(m, cancellationToken)
 
-            m.MoveNumber = await GetNextMoveNumber(m.GameId, cancellationToken);
-
-            bool isValidMove = await IsValidMove(m, cancellationToken);
-            if (isValidMove)
+            if (result.IsValid)
             {
                 await _moveRepository.Save(m, cancellationToken);
             }
 
-            return new MoveResult
-            {
-                IsValid = isValidMove,
-                Move = m
-            };
-        }
-
-        private async Task<int> GetNextMoveNumber(string gameId, CancellationToken
-            cancellationToken)
-        {
-             // !DANGER: this will propably load the moves again. They will already be loaded by the validation!
-
-            List<Move> moves = await _moveRepository.GetMovesForGame(gameId, cancellationToken);
-
-            return moves.Count + 1;
-        }
-
-        private async Task<bool> IsValidMove(Move m, CancellationToken cancellationToken)
-        {
-            //TODO: implement
-            return true;
+            return result;
         }
     }
 }
