@@ -34,7 +34,7 @@ namespace UltimateTicTacToe.Domain
         {
             // TODO: Validate if the m.GameId exists
 
-            var result = await _moveValidator.ValidateMove(m, cancellationToken)
+            var result = await _moveValidator.ValidateMove(m, cancellationToken);
 
             if (result.IsValid)
             {
