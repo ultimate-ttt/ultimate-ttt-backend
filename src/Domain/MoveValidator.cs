@@ -9,6 +9,32 @@ using UltimateTicTacToe.Domain.Abstractions;
 
 namespace UltimateTicTacToe.Domain
 {
+    internal static class BoardExtensions
+    {
+        internal static IEnumerable<IEnumerable<TileInformation>> GetAllLinesOfBoard(
+            this TileInformation[,] tiles
+        )
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                List<TileInformation> lineHorizontal = new List<TileInformation>(3);
+                List<TileInformation> lineVertical = new List<TileInformation>(3);
+                for (int y = 0; y < 3; y++)
+                {
+                    lineHorizontal.Add(tiles[x, y]);
+                    lineVertical.Add(tiles[y, x]);
+                }
+
+                yield return lineHorizontal;
+                yield return lineVertical;
+            }
+
+            // diagonals
+            yield return new List<TileInformation> {tiles[0, 0], tiles[1, 1], tiles[2, 2]};
+            yield return new List<TileInformation> {tiles[2, 0], tiles[1, 1], tiles[0, 2]};
+        }
+    }
+
     internal class BoardWinnerEvaluator
     {
         private readonly TileInformation[,] _tiles;
@@ -20,29 +46,42 @@ namespace UltimateTicTacToe.Domain
 
         internal Winner GetWinner(Player lastPlayer)
         {
-            // TODO: implement
+            if (HasPlayerWonAnyLine(lastPlayer))
+            {
+                return lastPlayer.ToWinner();
+            }
 
-            // has LastPlayer won ==> Wiiner = Playser
-            // is Board full ==> Winner ==> Draw
-            // Winner ==> none
+            if (IsBoardFull())
+            {
+                return Winner.Draw;
+            }
+
+            return Winner.None;
+        }
+
+        private bool HasPlayerWonAnyLine(Player p)
+        {
+            var lines = _tiles.GetAllLinesOfBoard();
+            return lines.Any(l => HasPlayerWonLine(l, p));
+        }
+
+        private bool HasPlayerWonLine(IEnumerable<TileInformation> tilesInLine, Player p)
+        {
+            return tilesInLine.All(t => t.Value == p.ToTileValue());
         }
 
         private bool IsBoardFull()
         {
-            for (int x = 0; x < 3; x++)
+            foreach (TileInformation t in _tiles)
             {
-                for (int y = 0; y < 3; y++)
+                if (t.Value == TileValue.Empty)
                 {
-                    if (_tiles[x, y].Value == TileValue.Empty)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
 
             return true;
         }
-
     }
 
     internal class TicTacToeGame
@@ -65,6 +104,8 @@ namespace UltimateTicTacToe.Domain
             // TODO: validate if its players move;
             tile.Value = m.Player.ToTileValue();
 
+            new BoardWinnerEvaluator(board.Tiles).GetWinner(m.Player);
+
             return null;
         }
 
@@ -76,7 +117,6 @@ namespace UltimateTicTacToe.Domain
             }
             catch (IndexOutOfRangeException ex)
             {
-
                 throw new InvalidPositionException(
                     "Invalid Board Position",
                     ex
@@ -92,7 +132,6 @@ namespace UltimateTicTacToe.Domain
             }
             catch (IndexOutOfRangeException ex)
             {
-
                 throw new InvalidPositionException(
                     "Invalid Tile Position",
                     ex
@@ -101,6 +140,7 @@ namespace UltimateTicTacToe.Domain
         }
 
         #region Initialize
+
         private void InitializeBoard()
         {
             _board = new SmallBoardInformation[3, 3];
@@ -110,9 +150,7 @@ namespace UltimateTicTacToe.Domain
                 {
                     _board[x, y] = new SmallBoardInformation
                     {
-                        Position = new Position(x, y),
-                        Value = TileValue.Empty,
-                        Tiles = GenerateTiles(x, y)
+                        Position = new Position(x, y), Value = TileValue.Empty, Tiles = GenerateTiles(x, y)
                     };
                 }
             }
@@ -126,13 +164,11 @@ namespace UltimateTicTacToe.Domain
             {
                 for (int y = 0; y < 3; y++)
                 {
-
                     tiles[x, y] = new SmallTileInformation
                     {
                         BoardPosition = new Position(boardX, boardY),
                         Position = new Position(x, y),
                         Value = TileValue.Empty,
-
                     };
                 }
             }
@@ -144,6 +180,7 @@ namespace UltimateTicTacToe.Domain
         {
             moves.ForEach(m => Move(m));
         }
+
         #endregion
     }
 }
@@ -151,6 +188,7 @@ namespace UltimateTicTacToe.Domain
 public class MoveValidator
 {
     private readonly IMoveRepository _moveRepository;
+
     public async Task<MoveResult> ValidateMove(Move m, CancellationToken ctx)
     {
         var moves = await GetMovesForGameAsync(m.GameId, ctx);
@@ -163,4 +201,3 @@ public class MoveValidator
         return await _moveRepository.GetMovesForGame(gameId, ctx);
     }
 }
-
