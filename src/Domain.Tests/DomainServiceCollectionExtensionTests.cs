@@ -38,8 +38,8 @@ namespace Domain.Tests
             sc.AddDomainServices();
 
             // assert
-            var gameManager = sc.BuildServiceProvider().GetService<MoveValidator>();
-            gameManager.Should().NotBeNull();
+            var validator = sc.BuildServiceProvider().GetService<IMoveValidator>();
+            validator.Should().NotBeNull();
         }
     }
 }

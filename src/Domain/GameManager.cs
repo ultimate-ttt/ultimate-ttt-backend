@@ -12,9 +12,9 @@ namespace UltimateTicTacToe.Domain
     {
         private readonly IGameRepository _gameRepository;
         private readonly IMoveRepository _moveRepository;
-        private readonly MoveValidator _moveValidator;
+        private readonly IMoveValidator _moveValidator;
 
-        public GameManager(IGameRepository gameRepository, IMoveRepository moveRepository, MoveValidator moveValidator)
+        public GameManager(IGameRepository gameRepository, IMoveRepository moveRepository, IMoveValidator moveValidator)
         {
             _gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
             _moveRepository = moveRepository ?? throw new ArgumentNullException(nameof(moveRepository));
@@ -38,7 +38,7 @@ namespace UltimateTicTacToe.Domain
 
             if (result.IsValid)
             {
-                await _moveRepository.Save(m, cancellationToken);
+                await _moveRepository.Save(result.Move, cancellationToken);
             }
 
             return result;

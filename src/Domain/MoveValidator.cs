@@ -9,13 +9,21 @@ namespace UltimateTicTacToe.Domain
 {
 }
 
-public class MoveValidator
+public interface IMoveValidator
+{
+    Task<MoveResult> ValidateMove(Move m, CancellationToken ctx);
+}
+
+public class MoveValidator : IMoveValidator
 {
     private readonly IMoveRepository _moveRepository;
 
     public async Task<MoveResult> ValidateMove(Move m, CancellationToken ctx)
     {
         var moves = await GetMovesForGameAsync(m.GameId, ctx);
+
+        // TODO calculate board
+        // TODO calculate
 
         return null;
     }

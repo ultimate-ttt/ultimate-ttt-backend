@@ -8,7 +8,7 @@ namespace UltimateTicTacToe.Domain
         public static void AddDomainServices(this IServiceCollection collection)
         {
             collection.AddTransient<IGameManager, GameManager>();
-            collection.AddTransient<MoveValidator>();
+            collection.AddTransient<IMoveValidator, MoveValidator>();
         }
     }
 }
