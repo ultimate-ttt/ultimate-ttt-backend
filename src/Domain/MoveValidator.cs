@@ -7,29 +7,28 @@ using UltimateTicTacToe.Domain.Abstractions;
 
 namespace UltimateTicTacToe.Domain
 {
-}
-
-public interface IMoveValidator
-{
-    Task<MoveResult> ValidateMove(Move m, CancellationToken ctx);
-}
-
-public class MoveValidator : IMoveValidator
-{
-    private readonly IMoveRepository _moveRepository;
-
-    public async Task<MoveResult> ValidateMove(Move m, CancellationToken ctx)
+    public class MoveValidator : IMoveValidator
     {
-        var moves = await GetMovesForGameAsync(m.GameId, ctx);
+        private readonly IMoveRepository _moveRepository;
 
-        // TODO calculate board
-        // TODO calculate
+        public MoveValidator(IMoveRepository moveRepository)
+        {
+            _moveRepository = moveRepository;
+        }
 
-        return null;
-    }
+        public async Task<MoveResult> ValidateMove(Move m, CancellationToken ctx)
+        {
+            var moves = await GetMovesForGameAsync(m.GameId, ctx);
 
-    private async Task<List<Move>> GetMovesForGameAsync(string gameId, CancellationToken ctx)
-    {
-        return await _moveRepository.GetMovesForGame(gameId, ctx);
+            // TODO calculate board
+            // TODO calculate
+
+            return null;
+        }
+
+        private async Task<List<Move>> GetMovesForGameAsync(string gameId, CancellationToken ctx)
+        {
+            return await _moveRepository.GetMovesForGame(gameId, ctx);
+        }
     }
 }
