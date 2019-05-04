@@ -2,6 +2,6 @@ namespace UltimateTicTacToe.Abstractions
 {
     public class SmallBoardInformation : TileInformation
     {
-        public SmallTileInformation[,] Tiles { get; set; }
+        public SmallTileInformation[][] Tiles { get; set; }
     }
 }

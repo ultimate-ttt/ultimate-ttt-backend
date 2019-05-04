@@ -6,7 +6,7 @@ namespace UltimateTicTacToe.Domain
     internal static class BoardExtensions
     {
         internal static IEnumerable<IEnumerable<TileInformation>> GetAllLinesOfBoard(
-            this TileInformation[,] tiles
+            this TileInformation[][] tiles
         )
         {
             for (int x = 0; x < 3; x++)
@@ -15,8 +15,8 @@ namespace UltimateTicTacToe.Domain
                 List<TileInformation> lineVertical = new List<TileInformation>(3);
                 for (int y = 0; y < 3; y++)
                 {
-                    lineHorizontal.Add(tiles[x, y]);
-                    lineVertical.Add(tiles[y, x]);
+                    lineHorizontal.Add(tiles[x][y]);
+                    lineVertical.Add(tiles[y][x]);
                 }
 
                 yield return lineHorizontal;
@@ -24,8 +24,8 @@ namespace UltimateTicTacToe.Domain
             }
 
             // diagonals
-            yield return new List<TileInformation> {tiles[0, 0], tiles[1, 1], tiles[2, 2]};
-            yield return new List<TileInformation> {tiles[2, 0], tiles[1, 1], tiles[0, 2]};
+            yield return new List<TileInformation> {tiles[0][0], tiles[1][1], tiles[2][2]};
+            yield return new List<TileInformation> {tiles[2][0], tiles[1][1], tiles[0][2]};
         }
     }
 }

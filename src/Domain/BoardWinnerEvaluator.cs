@@ -6,9 +6,9 @@ namespace UltimateTicTacToe.Domain
 {
     internal class BoardWinnerEvaluator
     {
-        private readonly TileInformation[,] _tiles;
+        private readonly TileInformation[][] _tiles;
 
-        public BoardWinnerEvaluator(TileInformation[,] tiles)
+        public BoardWinnerEvaluator(TileInformation[][] tiles)
         {
             _tiles = tiles;
         }
@@ -41,15 +41,7 @@ namespace UltimateTicTacToe.Domain
 
         private bool IsBoardFull()
         {
-            foreach (TileInformation t in _tiles)
-            {
-                if (t.Value == TileValue.Empty)
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return !_tiles.Any(t => t.Any(b => b.Value == TileValue.Empty));
         }
     }
 }
