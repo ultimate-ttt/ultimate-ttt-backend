@@ -2,11 +2,10 @@ using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using UltimateTicTacToe.Data.Abstractions;
-using UltimateTicTacToe.Domain;
 using UltimateTicTacToe.Domain.Abstractions;
 using Xunit;
 
-namespace Domain.Tests
+namespace UltimateTicTacToe.Domain.Tests
 {
     public class DomainServiceCollectionExtensionTests
     {

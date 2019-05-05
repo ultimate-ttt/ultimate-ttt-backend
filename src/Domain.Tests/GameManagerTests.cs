@@ -4,14 +4,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Snapshooter.Xunit;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Data.Abstractions;
-using UltimateTicTacToe.Domain;
 using UltimateTicTacToe.Domain.Abstractions;
 using Xunit;
 
-namespace Domain.Tests
+namespace UltimateTicTacToe.Domain.Tests
 {
     public class GameManagerTests
     {

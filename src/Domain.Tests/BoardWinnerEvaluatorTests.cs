@@ -21,7 +21,6 @@ namespace UltimateTicTacToe.Domain.Tests
                 {
                     emtyBoard[x][y] = new SmallTileInformation
                     {
-                        BoardPosition = new Position(0, 0),
                         Value = TileValue.Empty,
                     };
                 }
