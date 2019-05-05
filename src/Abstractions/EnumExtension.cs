@@ -21,5 +21,15 @@ namespace UltimateTicTacToe.Abstractions
 
             return Winner.Circle;
         }
+
+        public static Player Invert(this Player player)
+        {
+            if (player == Player.Cross)
+            {
+                return Player.Circle;
+            }
+
+            return Player.Cross;
+        }
     }
 }

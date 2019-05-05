@@ -8,7 +8,7 @@ namespace UltimateTicTacToe.Domain
     {
         private readonly TileInformation[][] _tiles;
 
-        public BoardWinnerEvaluator(TileInformation[][] tiles)
+        internal BoardWinnerEvaluator(TileInformation[][] tiles)
         {
             _tiles = tiles;
         }

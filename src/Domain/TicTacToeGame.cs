@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Domain.Abstractions;
 using UltimateTicTacToe.Domain.Abstractions.Exceptions;
@@ -25,24 +27,59 @@ namespace UltimateTicTacToe.Domain
         {
             try
             {
-                ThrowIfNotPlayersMove(m.Player);
+                ValidateIsPlayersMove(m.Player);
+
                 SmallBoardInformation board = GetBoard(m.BoardPosition);
+                // TODO: Is this a valid board to play according to last move
+
                 SmallTileInformation tile = GetTile(board, m.TilePosition);
+                //TODO: Can you play this tile
 
                 tile.Value = m.Player.ToTileValue();
 
                 Winner winner = new BoardWinnerEvaluator(board.Tiles).GetWinner(m.Player);
+
+                // if there is no exception until here the move was valid
+                _moves.Add(m);
+                ChangeCurrentPlayer();
+
+                return new MoveResult {IsValid = true, Move = m,};
             }
             catch (InvalidMoveException e)
             {
                 //TODO: maybe attach reason for invalidity
                 return new MoveResult {IsValid = false, Move = m,};
             }
-
-            return null;
         }
 
-        private void ThrowIfNotPlayersMove(Player player)
+        private void ValidateValidBoardToPlay(Position positonToValidate)
+        {
+            if (!_moves.Any())
+            {
+                return;
+            }
+
+            Move lastMove = _moves.Last();
+            Position lastMoveTilePosition = lastMove.TilePosition;
+            if (_board[lastMoveTilePosition.X][lastMoveTilePosition.Y].Value == TileValue.Empty)
+            {
+                if (lastMoveTilePosition.Equals(positonToValidate))
+                {
+                    return;
+                }
+
+                throw new IllegalPositionException();
+            }
+
+            //TODO: if board has value check if the other given boards are valid.
+        }
+
+        private void ChangeCurrentPlayer()
+        {
+            _currentPlayer = _currentPlayer.Invert();
+        }
+
+        private void ValidateIsPlayersMove(Player player)
         {
             if (_currentPlayer.Equals(player))
             {
