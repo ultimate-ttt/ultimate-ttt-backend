@@ -1,0 +1,210 @@
+﻿[
+  [
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 0,
+        "Y": 0
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 0,
+        "Y": 1
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 0,
+        "Y": 2
+      },
+      "Value": "Empty"
+    }
+  ],
+  [
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 0,
+        "Y": 0
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 1,
+        "Y": 0
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 2,
+        "Y": 0
+      },
+      "Value": "Empty"
+    }
+  ],
+  [
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 1,
+        "Y": 0
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 1,
+        "Y": 1
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 1,
+        "Y": 2
+      },
+      "Value": "Empty"
+    }
+  ],
+  [
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 0,
+        "Y": 1
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 1,
+        "Y": 1
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 2,
+        "Y": 1
+      },
+      "Value": "Empty"
+    }
+  ],
+  [
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 2,
+        "Y": 0
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 2,
+        "Y": 1
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 2,
+        "Y": 2
+      },
+      "Value": "Empty"
+    }
+  ],
+  [
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 0,
+        "Y": 2
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 1,
+        "Y": 2
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 2,
+        "Y": 2
+      },
+      "Value": "Empty"
+    }
+  ],
+  [
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 0,
+        "Y": 0
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 1,
+        "Y": 1
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 2,
+        "Y": 2
+      },
+      "Value": "Empty"
+    }
+  ],
+  [
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 2,
+        "Y": 0
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 1,
+        "Y": 1
+      },
+      "Value": "Empty"
+    },
+    {
+      "Tiles": null,
+      "Position": {
+        "X": 0,
+        "Y": 2
+      },
+      "Value": "Empty"
+    }
+  ]
+]
