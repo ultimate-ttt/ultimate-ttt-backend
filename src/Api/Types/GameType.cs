@@ -1,3 +1,4 @@
+using System;
 using HotChocolate.Types;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Data.Abstractions;
@@ -18,8 +19,8 @@ namespace UltimateTicTacToe.Api.Types
                 .Type<NonNullType<ListType<NonNullType<MoveType>>>>()
                 .Resolver(async r =>
                 {
-                    var gameId = r.Parent<Game>().Id;
-                    var moveRepository = r.Service<IMoveRepository>();
+                    string gameId = r.Parent<Game>().Id;
+                    IMoveRepository moveRepository = r.Service<IMoveRepository>();
 
                     return await moveRepository.GetMovesForGame(gameId, r.RequestAborted);
                 });

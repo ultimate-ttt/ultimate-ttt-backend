@@ -26,7 +26,7 @@ namespace UltimateTicTacToe.Api
         {
             builder.SetBasePath(Directory.GetCurrentDirectory());
 #if DEBUG
-            builder.AddJsonFile("appsettings.json", true, true);
+            builder.AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true);
 #endif
             builder.AddEnvironmentVariables();
         }

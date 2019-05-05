@@ -9,13 +9,13 @@ namespace UltimateTicTacToe.Domain
 
         public static string NewId()
         {
-            var random = new Random();
-            var characterAmount = Characters.Length;
-            var id = new char[IdLength];
+            Random random = new Random();
+            int characterAmount = Characters.Length;
+            char[] id = new char[IdLength];
 
-            for (var i = 0; i < IdLength; i++)
+            for (int i = 0; i < IdLength; i++)
             {
-                var index = random.Next(0, characterAmount);
+                int index = random.Next(0,characterAmount);
                 id[i] = Characters[index];
             }
 

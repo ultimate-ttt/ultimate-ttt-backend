@@ -14,7 +14,7 @@ namespace Domain.Tests
         public void AddDomainServices_ValidServiceCollection_AddsIGameManager()
         {
             // arrange
-            var sc = new ServiceCollection();
+            ServiceCollection sc = new ServiceCollection();
             sc.AddSingleton(Mock.Of<IGameRepository>());
             sc.AddSingleton(Mock.Of<IMoveRepository>());
 
@@ -30,7 +30,7 @@ namespace Domain.Tests
         public void AddDomainServices_ValidServiceCollection_AddsMoveValidator()
         {
             // arrange
-            var sc = new ServiceCollection();
+            ServiceCollection sc = new ServiceCollection();
             sc.AddSingleton(Mock.Of<IGameRepository>());
             sc.AddSingleton(Mock.Of<IMoveRepository>());
 

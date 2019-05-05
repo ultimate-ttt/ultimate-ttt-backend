@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate;
@@ -12,7 +13,7 @@ namespace UltimateTicTacToe.Api
             string id,
             [Service] IGameRepository gameRepository,
             CancellationToken cancellationToken
-        )
+            )
         {
             return await gameRepository.GetById(id, cancellationToken);
         }

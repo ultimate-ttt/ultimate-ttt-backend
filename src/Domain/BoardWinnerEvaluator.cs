@@ -15,16 +15,22 @@ namespace UltimateTicTacToe.Domain
 
         internal Winner GetWinner(Player lastPlayer)
         {
-            if (HasPlayerWonAnyLine(lastPlayer)) return lastPlayer.ToWinner();
+            if (HasPlayerWonAnyLine(lastPlayer))
+            {
+                return lastPlayer.ToWinner();
+            }
 
-            if (IsBoardFull()) return Winner.Draw;
+            if (IsBoardFull())
+            {
+                return Winner.Draw;
+            }
 
             return Winner.None;
         }
 
         private bool HasPlayerWonAnyLine(Player p)
         {
-            IEnumerable<IEnumerable<TileInformation>> lines = _tiles.GetAllLinesOfBoard();
+            var lines = _tiles.GetAllLinesOfBoard();
             return lines.Any(l => HasPlayerWonLine(l, p));
         }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UltimateTicTacToe.Abstractions;
@@ -22,7 +23,7 @@ namespace UltimateTicTacToe.Domain
 
         public async Task<Game> CreateGame(CancellationToken cancellationToken)
         {
-            var g = new Game {Id = ReadableIdGenerator.NewId(), Winner = null, FinishedAt = null,};
+            Game g = new Game { Id = ReadableIdGenerator.NewId(), Winner = null, FinishedAt = null, };
 
             await _gameRepository.Save(g, cancellationToken);
 
@@ -33,9 +34,12 @@ namespace UltimateTicTacToe.Domain
         {
             // TODO: Validate if the m.GameId exists
 
-            MoveResult result = await _moveValidator.ValidateMove(m, cancellationToken);
+            var result = await _moveValidator.ValidateMove(m, cancellationToken);
 
-            if (result.IsValid) await _moveRepository.Save(result.Move, cancellationToken);
+            if (result.IsValid)
+            {
+                await _moveRepository.Save(result.Move, cancellationToken);
+            }
 
             return result;
         }

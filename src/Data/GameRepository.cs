@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -30,7 +31,7 @@ namespace UltimateTicTacToe.Data
             await _gameCollection
                 .InsertOneAsync(
                     game,
-                    null,
+                    options: null,
                     cancellationToken);
         }
     }
