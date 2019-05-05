@@ -123,7 +123,8 @@ namespace UltimateTicTacToe.Domain
                 {
                     _board[x][y] = new SmallBoardInformation
                     {
-                        Position = new Position(x, y), Value = TileValue.Empty, Tiles = GenerateTiles(x, y)
+                        Value = TileValue.Empty,
+                        Tiles = GenerateTiles(x, y)
                     };
                 }
             }
@@ -141,7 +142,6 @@ namespace UltimateTicTacToe.Domain
                     tiles[x][y] = new SmallTileInformation
                     {
                         BoardPosition = new Position(boardX, boardY),
-                        Position = new Position(x, y),
                         Value = TileValue.Empty,
                     };
                 }

@@ -21,7 +21,6 @@ namespace UltimateTicTacToe.Domain.Tests
                     board[x][y] = new SmallTileInformation
                     {
                         BoardPosition = new Position(0, 0),
-                        Position = new Position(x, y),
                         Value = TileValue.Empty,
                     };
                 }
@@ -32,7 +31,6 @@ namespace UltimateTicTacToe.Domain.Tests
 
             // assert
             result.Should().HaveCount(8);
-            Snapshot.Match(result);
         }
 
         [Fact]
@@ -48,7 +46,6 @@ namespace UltimateTicTacToe.Domain.Tests
                 {
                     board[x][y] = new SmallBoardInformation
                     {
-                       Position = new Position(x, y),
                        Value = TileValue.Empty,
                     };
                 }
@@ -59,7 +56,6 @@ namespace UltimateTicTacToe.Domain.Tests
 
             // assert
             result.Should().HaveCount(8);
-            Snapshot.Match(result);
         }
     }
 }
