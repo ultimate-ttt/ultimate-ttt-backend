@@ -14,16 +14,27 @@ namespace UltimateTicTacToe.Domain
         private readonly IMoveRepository _moveRepository;
         private readonly IMoveValidator _moveValidator;
 
-        public GameManager(IGameRepository gameRepository, IMoveRepository moveRepository, IMoveValidator moveValidator)
+        public GameManager(
+            IGameRepository gameRepository,
+            IMoveRepository moveRepository,
+            IMoveValidator moveValidator)
         {
-            _gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
-            _moveRepository = moveRepository ?? throw new ArgumentNullException(nameof(moveRepository));
-            _moveValidator = moveValidator ?? throw new ArgumentNullException(nameof(moveValidator));
+            _gameRepository = gameRepository
+                              ?? throw new ArgumentNullException(nameof(gameRepository));
+            _moveRepository = moveRepository
+                              ?? throw new ArgumentNullException(nameof(moveRepository));
+            _moveValidator = moveValidator
+                             ?? throw new ArgumentNullException(nameof(moveValidator));
         }
 
         public async Task<Game> CreateGame(CancellationToken cancellationToken)
         {
-            Game g = new Game { Id = ReadableIdGenerator.NewId(), Winner = null, FinishedAt = null, };
+            Game g = new Game
+            {
+                Id = ReadableIdGenerator.NewId(),
+                Winner = null,
+                FinishedAt = null,
+            };
 
             await _gameRepository.Save(g, cancellationToken);
 
