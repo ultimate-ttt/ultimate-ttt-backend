@@ -37,7 +37,7 @@ namespace UltimateTicTacToe.Domain
 
                 tile.Value = m.Player.ToTileValue();
 
-                Winner winner = new BoardWinnerEvaluator(board.Tiles).GetWinner(m.Player);
+                Winner winner = board.Tiles.GetWinner(m.Player);
 
                 // if there is no exception until here the move was valid
                 _moves.Add(m);

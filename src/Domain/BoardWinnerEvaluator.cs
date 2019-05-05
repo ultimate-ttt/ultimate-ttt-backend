@@ -4,23 +4,16 @@ using UltimateTicTacToe.Abstractions;
 
 namespace UltimateTicTacToe.Domain
 {
-    internal class BoardWinnerEvaluator
+    internal static class BoardWinnerEvaluator
     {
-        private readonly TileInformation[][] _tiles;
-
-        internal BoardWinnerEvaluator(TileInformation[][] tiles)
+        internal static Winner GetWinner(this TileInformation[][] tiles, Player lastPlayer)
         {
-            _tiles = tiles;
-        }
-
-        internal Winner GetWinner(Player lastPlayer)
-        {
-            if (HasPlayerWonAnyLine(lastPlayer))
+            if (HasPlayerWonAnyLine(tiles, lastPlayer))
             {
                 return lastPlayer.ToWinner();
             }
 
-            if (IsBoardFull())
+            if (IsBoardFull(tiles))
             {
                 return Winner.Draw;
             }
@@ -28,20 +21,20 @@ namespace UltimateTicTacToe.Domain
             return Winner.None;
         }
 
-        private bool HasPlayerWonAnyLine(Player p)
+        private static bool HasPlayerWonAnyLine(TileInformation[][] tiles, Player p)
         {
-            var lines = _tiles.GetAllLinesOfBoard();
+            var lines = tiles.GetAllLinesOfBoard();
             return lines.Any(l => HasPlayerWonLine(l, p));
         }
 
-        private bool HasPlayerWonLine(IEnumerable<TileInformation> tilesInLine, Player p)
+        private static bool HasPlayerWonLine(IEnumerable<TileInformation> tilesInLine, Player p)
         {
             return tilesInLine.All(t => t.Value == p.ToTileValue());
         }
 
-        private bool IsBoardFull()
+        private static bool IsBoardFull(TileInformation[][] tiles)
         {
-            return !_tiles.Any(t => t.Any(b => b.Value == TileValue.Empty));
+            return !tiles.Any(t => t.Any(b => b.Value == TileValue.Empty));
         }
     }
 }
