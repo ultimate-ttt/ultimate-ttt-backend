@@ -4,7 +4,6 @@ namespace UltimateTicTacToe.Abstractions
     {
         public Position()
         {
-
         }
 
         public Position(int x, int y)

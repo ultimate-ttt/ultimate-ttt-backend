@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
-using Snapshooter.Xunit;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Data.Abstractions;
 using UltimateTicTacToe.Domain;
@@ -68,7 +67,7 @@ namespace Domain.Tests
                 Mock.Of<IMoveValidator>());
 
             // act
-            var game = await gameManager.CreateGame(CancellationToken.None);
+            Game game = await gameManager.CreateGame(CancellationToken.None);
 
             // assert
             game.Id.Should().NotBeNullOrWhiteSpace();
@@ -80,7 +79,7 @@ namespace Domain.Tests
         public async Task CreateGame_SavesGameInGameRepository()
         {
             // arrange
-            Mock<IGameRepository> gameRepositoryMock = new Mock<IGameRepository>();
+            var gameRepositoryMock = new Mock<IGameRepository>();
             gameRepositoryMock
                 .Setup(m => m.Save(It.IsAny<Game>(), CancellationToken.None))
                 .Returns(Task.CompletedTask)
@@ -90,7 +89,7 @@ namespace Domain.Tests
                 Mock.Of<IMoveValidator>());
 
             // act
-            var game = await gameManager.CreateGame(CancellationToken.None);
+            Game game = await gameManager.CreateGame(CancellationToken.None);
 
             // assert
             gameRepositoryMock.Verify(m => m.Save(It.IsAny<Game>(), CancellationToken.None), Times.Once);
@@ -107,12 +106,12 @@ namespace Domain.Tests
                 TilePosition = new Position {X = 0, Y = 0},
                 Player = Player.Cross
             };
-            Mock<IMoveValidator> moveValidatorMock = new Mock<IMoveValidator>();
+            var moveValidatorMock = new Mock<IMoveValidator>();
             moveValidatorMock
                 .Setup(m => m.ValidateMove(It.IsAny<Move>(), CancellationToken.None))
                 .ReturnsAsync(new MoveResult {IsValid = true, Move = move});
 
-            Mock<IMoveRepository> moveRepositoryMock = new Mock<IMoveRepository>();
+            var moveRepositoryMock = new Mock<IMoveRepository>();
             moveRepositoryMock
                 .Setup(m => m.GetMovesForGame(It.IsAny<string>(), CancellationToken.None))
                 .Returns(() => Task.FromResult(new List<Move>()))
@@ -126,7 +125,7 @@ namespace Domain.Tests
                 moveValidatorMock.Object);
 
             // act
-            var result =
+            MoveResult result =
                 await gameManager.Move(
                     move, CancellationToken.None);
 

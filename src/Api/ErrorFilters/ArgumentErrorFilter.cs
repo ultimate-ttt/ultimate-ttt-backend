@@ -8,10 +8,7 @@ namespace UltimateTicTacToe.Api.ErrorFilters
     {
         public IError OnError(IError error)
         {
-            if (error.Exception is ArgumentException ex)
-            {
-                return error.WithMessage(ex.Message);
-            }
+            if (error.Exception is ArgumentException ex) return error.WithMessage(ex.Message);
 
             return error;
         }

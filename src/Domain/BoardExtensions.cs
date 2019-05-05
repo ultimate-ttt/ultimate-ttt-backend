@@ -9,11 +9,11 @@ namespace UltimateTicTacToe.Domain
             this TileInformation[][] tiles
         )
         {
-            for (int x = 0; x < 3; x++)
+            for (var x = 0; x < 3; x++)
             {
-                List<TileInformation> lineHorizontal = new List<TileInformation>(3);
-                List<TileInformation> lineVertical = new List<TileInformation>(3);
-                for (int y = 0; y < 3; y++)
+                var lineHorizontal = new List<TileInformation>(3);
+                var lineVertical = new List<TileInformation>(3);
+                for (var y = 0; y < 3; y++)
                 {
                     lineHorizontal.Add(tiles[x][y]);
                     lineVertical.Add(tiles[y][x]);

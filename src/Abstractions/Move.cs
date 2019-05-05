@@ -1,5 +1,3 @@
-using System;
-
 namespace UltimateTicTacToe.Abstractions
 {
     public class Move

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Domain.Abstractions;
@@ -10,8 +9,8 @@ namespace UltimateTicTacToe.Domain
 {
     internal class TicTacToeGame
     {
-        private SmallBoardInformation[][] _board;
         private readonly List<Move> _moves;
+        private SmallBoardInformation[][] _board;
         private Player _currentPlayer;
 
         public TicTacToeGame(List<Move> moves)
@@ -54,19 +53,13 @@ namespace UltimateTicTacToe.Domain
 
         private void ValidateValidBoardToPlay(Position positonToValidate)
         {
-            if (!_moves.Any())
-            {
-                return;
-            }
+            if (!_moves.Any()) return;
 
             Move lastMove = _moves.Last();
             Position lastMoveTilePosition = lastMove.TilePosition;
             if (_board[lastMoveTilePosition.X][lastMoveTilePosition.Y].Value == TileValue.Empty)
             {
-                if (lastMoveTilePosition.Equals(positonToValidate))
-                {
-                    return;
-                }
+                if (lastMoveTilePosition.Equals(positonToValidate)) return;
 
                 throw new IllegalPositionException();
             }
@@ -81,10 +74,7 @@ namespace UltimateTicTacToe.Domain
 
         private void ValidateIsPlayersMove(Player player)
         {
-            if (_currentPlayer.Equals(player))
-            {
-                throw new InvalidPlayerException();
-            }
+            if (_currentPlayer.Equals(player)) throw new InvalidPlayerException();
         }
 
         private SmallBoardInformation GetBoard(Position p)
@@ -116,35 +106,31 @@ namespace UltimateTicTacToe.Domain
         private void InitializeBoard()
         {
             _board = new SmallBoardInformation[3][];
-            for (int x = 0; x < 3; x++)
+            for (var x = 0; x < 3; x++)
             {
                 _board[x] = new SmallBoardInformation[3];
-                for (int y = 0; y < 3; y++)
-                {
+                for (var y = 0; y < 3; y++)
                     _board[x][y] = new SmallBoardInformation
                     {
                         Position = new Position(x, y), Value = TileValue.Empty, Tiles = GenerateTiles(x, y)
                     };
-                }
             }
         }
 
         private SmallTileInformation[][] GenerateTiles(int boardX, int boardY)
         {
-            SmallTileInformation[][] tiles = new SmallTileInformation[3][];
+            var tiles = new SmallTileInformation[3][];
 
-            for (int x = 0; x < 3; x++)
+            for (var x = 0; x < 3; x++)
             {
                 tiles[x] = new SmallTileInformation[3];
-                for (int y = 0; y < 3; y++)
-                {
+                for (var y = 0; y < 3; y++)
                     tiles[x][y] = new SmallTileInformation
                     {
                         BoardPosition = new Position(boardX, boardY),
                         Position = new Position(x, y),
                         Value = TileValue.Empty,
                     };
-                }
             }
 
             return tiles;

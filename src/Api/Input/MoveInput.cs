@@ -15,10 +15,7 @@ namespace UltimateTicTacToe.Api.Input
         {
             return new Move
             {
-                Player = Player,
-                GameId = GameId,
-                TilePosition = TilePosition,
-                BoardPosition = BoardPosition
+                Player = Player, GameId = GameId, TilePosition = TilePosition, BoardPosition = BoardPosition
             };
         }
     }
