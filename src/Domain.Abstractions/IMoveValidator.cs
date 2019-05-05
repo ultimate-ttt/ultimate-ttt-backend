@@ -6,6 +6,6 @@ namespace UltimateTicTacToe.Domain.Abstractions
 {
     public interface IMoveValidator
     {
-        Task<MoveResult> ValidateMove(Move m, CancellationToken ctx);
+        Task<MoveResult> ValidateMoveAsync(Move m, CancellationToken ctx);
     }
 }

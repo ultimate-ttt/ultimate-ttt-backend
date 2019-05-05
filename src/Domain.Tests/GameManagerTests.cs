@@ -107,7 +107,7 @@ namespace UltimateTicTacToe.Domain.Tests
             };
             Mock<IMoveValidator> moveValidatorMock = new Mock<IMoveValidator>();
             moveValidatorMock
-                .Setup(m => m.ValidateMove(It.IsAny<Move>(), CancellationToken.None))
+                .Setup(m => m.ValidateMoveAsync(It.IsAny<Move>(), CancellationToken.None))
                 .ReturnsAsync(new MoveResult {IsValid = true, Move = move});
 
             Mock<IMoveRepository> moveRepositoryMock = new Mock<IMoveRepository>();

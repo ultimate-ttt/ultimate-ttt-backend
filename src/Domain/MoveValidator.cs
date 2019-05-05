@@ -16,7 +16,7 @@ namespace UltimateTicTacToe.Domain
             _moveRepository = moveRepository;
         }
 
-        public async Task<MoveResult> ValidateMove(Move m, CancellationToken ctx)
+        public async Task<MoveResult> ValidateMoveAsync(Move m, CancellationToken ctx)
         {
             var moves = await GetMovesForGameAsync(m.GameId, ctx);
             m.MoveNumber = moves.Count + 1;
