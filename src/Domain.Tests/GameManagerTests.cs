@@ -105,6 +105,14 @@ namespace UltimateTicTacToe.Domain.Tests
                 TilePosition = new Position {X = 0, Y = 0},
                 Player = Player.Cross
             };
+            Mock<IGameRepository> gameRepositoryMock = new Mock<IGameRepository>();
+            gameRepositoryMock
+                .Setup(r => r.GetById("abc", CancellationToken.None))
+                .ReturnsAsync(new Game{
+                    Id = "abc",
+                    Winner = Winner.None
+                });
+
             Mock<IMoveValidator> moveValidatorMock = new Mock<IMoveValidator>();
             moveValidatorMock
                 .Setup(m => m.ValidateMoveAsync(It.IsAny<Move>(), CancellationToken.None))
@@ -120,7 +128,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 .Returns(Task.CompletedTask)
                 .Verifiable();
 
-            var gameManager = new GameManager(Mock.Of<IGameRepository>(), moveRepositoryMock.Object,
+            var gameManager = new GameManager(gameRepositoryMock.Object, moveRepositoryMock.Object,
                 moveValidatorMock.Object);
 
             // act
