@@ -28,12 +28,11 @@ namespace UltimateTicTacToe.Domain
             try
             {
                 ValidateIsPlayersMove(m.Player);
+                ValidateValidBoardToPlay(m.BoardPosition);
 
                 SmallBoardInformation board = GetBoard(m.BoardPosition);
-                // TODO: Is this a valid board to play according to last move
-
                 SmallTileInformation tile = GetTile(board, m.TilePosition);
-                //TODO: Can you play this tile
+                ValidateTileEmpty(tile);
 
                 tile.Value = m.Player.ToTileValue();
 
@@ -49,6 +48,14 @@ namespace UltimateTicTacToe.Domain
             {
                 //TODO: maybe attach reason for invalidity
                 return new MoveResult {IsValid = false, Move = m,};
+            }
+        }
+
+        private void ValidateTileEmpty(SmallTileInformation tile)
+        {
+            if (tile.Value != TileValue.Empty)
+            {
+                throw new TileNotEmtpyException();
             }
         }
 
@@ -123,8 +130,7 @@ namespace UltimateTicTacToe.Domain
                 {
                     _board[x][y] = new SmallBoardInformation
                     {
-                        Value = TileValue.Empty,
-                        Tiles = GenerateTiles(x, y)
+                        Value = TileValue.Empty, Tiles = GenerateTiles(x, y)
                     };
                 }
             }
@@ -141,8 +147,7 @@ namespace UltimateTicTacToe.Domain
                 {
                     tiles[x][y] = new SmallTileInformation
                     {
-                        BoardPosition = new Position(boardX, boardY),
-                        Value = TileValue.Empty,
+                        BoardPosition = new Position(boardX, boardY), Value = TileValue.Empty,
                     };
                 }
             }
