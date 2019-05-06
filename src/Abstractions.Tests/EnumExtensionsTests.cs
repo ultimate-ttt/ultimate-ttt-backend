@@ -46,5 +46,21 @@ namespace UltimateTicTacToe.Abstractions.Tests
             //assert
             result.Should().Be(expectedOutput);
         }
+
+        [Theory]
+        [InlineData(Winner.Circle, TileValue.Circle)]
+        [InlineData(Winner.Cross, TileValue.Cross)]
+        [InlineData(Winner.None, TileValue.Empty)]
+        [InlineData(Winner.Draw, TileValue.Destroyed)]
+        public void ToTileValue_WinnerInput_ValidOutput(Winner input, TileValue expectedOutput)
+        {
+            // arrange
+
+            //act
+            var result = input.ToTileValue();
+
+            //assert
+            result.Should().Be(expectedOutput);
+        }
     }
 }
