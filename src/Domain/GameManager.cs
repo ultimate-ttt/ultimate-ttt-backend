@@ -43,7 +43,14 @@ namespace UltimateTicTacToe.Domain
 
         public async Task<MoveResult> Move(Move m, CancellationToken cancellationToken)
         {
-            // TODO: Validate if the m.GameId exists
+            if (!await IsGameExistent(m.GameId, cancellationToken))
+            {
+                return new MoveResult
+                {
+                    Move = m,
+                    IsValid = false
+                };
+            }
 
             var result = await _moveValidator.ValidateMoveAsync(m, cancellationToken);
 
@@ -53,6 +60,12 @@ namespace UltimateTicTacToe.Domain
             }
 
             return result;
+        }
+
+        private async Task<bool> IsGameExistent(string id, CancellationToken ctx)
+        {
+            var game = await _gameRepository.GetById(id, ctx);
+            return game != null;
         }
     }
 }
