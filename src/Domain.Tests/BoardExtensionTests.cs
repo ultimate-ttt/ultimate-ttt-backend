@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using FluentAssertions;
-using Snapshooter.Xunit;
 using UltimateTicTacToe.Abstractions;
 using Xunit;
 
@@ -27,7 +27,8 @@ namespace UltimateTicTacToe.Domain.Tests
             }
 
             // act
-            var result = board.GetAllLinesOfBoard();
+            IEnumerable<IEnumerable<TileInformation>> result =
+                BoardExtensions.GetAllLinesOfBoard(board);
 
             // assert
             result.Should().HaveCount(8);
@@ -46,13 +47,14 @@ namespace UltimateTicTacToe.Domain.Tests
                 {
                     board[x][y] = new SmallBoardInformation
                     {
-                       Value = TileValue.Empty,
+                        Value = TileValue.Empty,
                     };
                 }
             }
 
             // act
-            var result = board.GetAllLinesOfBoard();
+            IEnumerable<IEnumerable<TileInformation>> result =
+                BoardExtensions.GetAllLinesOfBoard(board);
 
             // assert
             result.Should().HaveCount(8);
