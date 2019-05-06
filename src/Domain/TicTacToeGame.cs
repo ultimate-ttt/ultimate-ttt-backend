@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Domain.Abstractions;
@@ -13,12 +12,14 @@ namespace UltimateTicTacToe.Domain
         private SmallBoardInformation[][] _board;
         private readonly List<Move> _moves;
         private Player _currentPlayer;
+        private Winner _winner;
 
         public TicTacToeGame(List<Move> moves)
         {
             InitializeBoard();
             _moves = new List<Move>();
             _currentPlayer = Player.Cross;
+            _winner = Winner.None;
 
             ApplyMoves(moves);
         }
@@ -27,27 +28,54 @@ namespace UltimateTicTacToe.Domain
         {
             try
             {
+                ValidateNoWinner();
                 ValidateIsPlayersMove(m.Player);
                 ValidateValidBoardToPlay(m.BoardPosition);
 
                 SmallBoardInformation board = GetBoard(m.BoardPosition);
                 SmallTileInformation tile = GetTile(board, m.TilePosition);
+
                 ValidateTileEmpty(tile);
 
                 tile.Value = m.Player.ToTileValue();
 
                 Winner winner = board.Tiles.GetWinner(m.Player);
+                if (winner != Winner.None)
+                {
+                    board.Value = winner.ToTileValue();
+                    _winner = _board.GetWinner(m.Player);
+                }
 
                 // if there is no exception until here the move was valid
                 _moves.Add(m);
                 ChangeCurrentPlayer();
 
-                return new MoveResult {IsValid = true, Move = m,};
+                return new MoveResult
+                {
+                    IsValid = true,
+                    Move = m,
+                    MoveFinishedBoard = winner != Winner.None,
+                    MoveFinishedGame = _winner != Winner.None,
+                };
             }
             catch (InvalidMoveException e)
             {
-                //TODO: maybe attach reason for invalidity
-                return new MoveResult {IsValid = false, Move = m,};
+                return new MoveResult
+                {
+                    IsValid = false,
+                    Move = m,
+                    MoveFinishedBoard = false,
+                    MoveFinishedGame = false,
+                    InvalidReason = e.Message,
+                };
+            }
+        }
+
+        private void ValidateNoWinner()
+        {
+            if (_winner != Winner.None)
+            {
+                throw new GameAlreadyFinishedException();
             }
         }
 
@@ -59,18 +87,20 @@ namespace UltimateTicTacToe.Domain
             }
         }
 
-        private void ValidateValidBoardToPlay(Position positonToValidate)
+        private void ValidateValidBoardToPlay(Position positionToValidate)
         {
             if (!_moves.Any())
             {
+                //no moves ==> board is empty ==> all moves valid
                 return;
             }
 
             Move lastMove = _moves.Last();
             Position lastMoveTilePosition = lastMove.TilePosition;
+
             if (_board[lastMoveTilePosition.X][lastMoveTilePosition.Y].Value == TileValue.Empty)
             {
-                if (lastMoveTilePosition.Equals(positonToValidate))
+                if (lastMoveTilePosition.Equals(positionToValidate))
                 {
                     return;
                 }
@@ -78,7 +108,12 @@ namespace UltimateTicTacToe.Domain
                 throw new IllegalPositionException();
             }
 
-            //TODO: if board has value check if the other given boards are valid.
+            if (_board[positionToValidate.X][positionToValidate.Y].Value == TileValue.Empty)
+            {
+                return;
+            }
+
+            throw new IllegalPositionException();
         }
 
         private void ChangeCurrentPlayer()
@@ -130,7 +165,8 @@ namespace UltimateTicTacToe.Domain
                 {
                     _board[x][y] = new SmallBoardInformation
                     {
-                        Value = TileValue.Empty, Tiles = GenerateTiles(x, y)
+                        Value = TileValue.Empty,
+                        Tiles = GenerateTiles(x, y)
                     };
                 }
             }
@@ -147,7 +183,8 @@ namespace UltimateTicTacToe.Domain
                 {
                     tiles[x][y] = new SmallTileInformation
                     {
-                        BoardPosition = new Position(boardX, boardY), Value = TileValue.Empty,
+                        BoardPosition = new Position(boardX, boardY),
+                        Value = TileValue.Empty,
                     };
                 }
             }
