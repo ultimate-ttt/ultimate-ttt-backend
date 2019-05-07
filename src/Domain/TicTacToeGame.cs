@@ -16,6 +16,11 @@ namespace UltimateTicTacToe.Domain
 
         public TicTacToeGame(List<Move> moves)
         {
+            if (moves == null)
+            {
+                throw new ArgumentNullException(nameof(moves));
+            }
+
             InitializeBoard();
             _moves = new List<Move>();
             _currentPlayer = Player.Cross;
