@@ -12,6 +12,100 @@ namespace UltimateTicTacToe.Domain.Tests
         private void GetWinner_EmptyBoard_ReturnsWinnerNone(Player lastPlayer)
         {
             // arrange
+            var emptyBoard =  GetEmptyBoard();
+
+            // act
+            var winner = emptyBoard.GetWinner(lastPlayer);
+
+            // assert
+            winner.Should().Be(Winner.None);
+        }
+
+        [Theory]
+        [InlineData(0, Player.Cross)]
+        [InlineData(1, Player.Cross)]
+        [InlineData(2, Player.Cross)]
+        [InlineData(0, Player.Circle)]
+        [InlineData(1, Player.Circle)]
+        [InlineData(2, Player.Circle)]
+        private void GetWinner_LinesHorizontalWinner_ReturnsCorrectWinner(int x, Player p)
+        {
+            // arrange
+            var board = GetEmptyBoard();
+            for (int y = 0; y < 3; y++)
+            {
+                board[x][y].Value = p.ToTileValue();
+            }
+
+            //act
+            var winner = board.GetWinner(p);
+
+            //assert
+            winner.Should().Be(p.ToWinner());
+        }
+
+        [Theory]
+        [InlineData(0, Player.Cross)]
+        [InlineData(1, Player.Cross)]
+        [InlineData(2, Player.Cross)]
+        [InlineData(0, Player.Circle)]
+        [InlineData(1, Player.Circle)]
+        [InlineData(2, Player.Circle)]
+        private void GetWinner_LinesVerticalWinner_ReturnsCorrectWinner(int y, Player p)
+        {
+            // arrange
+            var board = GetEmptyBoard();
+            for (int x = 0; x < 3; x++)
+            {
+                board[x][y].Value = p.ToTileValue();
+            }
+
+            //act
+            var winner = board.GetWinner(p);
+
+            //assert
+            winner.Should().Be(p.ToWinner());
+        }
+
+        [Theory]
+        [InlineData(Player.Circle)]
+        [InlineData(Player.Cross)]
+        private void GetWinner_DiagonalTopLeftToBottomRightWinner_ReturnsCorrectWinner(Player p)
+        {
+            // arrange
+            var board = GetEmptyBoard();
+            board[0][0].Value = p.ToTileValue();
+            board[1][1].Value = p.ToTileValue();
+            board[2][2].Value = p.ToTileValue();
+
+            //act
+            var winner = board.GetWinner(p);
+
+            //assert
+            winner.Should().Be(p.ToWinner());
+        }
+
+        [Theory]
+        [InlineData(Player.Circle)]
+        [InlineData(Player.Cross)]
+        private void GetWinner_DiagonalBottomLeftToTopRightWinner_ReturnsCorrectWinner(Player p)
+        {
+            // arrange
+            var board = GetEmptyBoard();
+            board[2][0].Value = p.ToTileValue();
+            board[1][1].Value = p.ToTileValue();
+            board[0][2].Value = p.ToTileValue();
+
+            //act
+            var winner = board.GetWinner(p);
+
+            //assert
+            winner.Should().Be(p.ToWinner());
+        }
+
+
+        private SmallTileInformation[][] GetEmptyBoard()
+        {
             var emptyBoard =  new SmallTileInformation[3][];
 
             for (int x = 0; x < 3; x++)
@@ -26,11 +120,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 }
             }
 
-            // act
-            var winner = emptyBoard.GetWinner(lastPlayer);
-
-            // assert
-            winner.Should().Be(Winner.None);
+            return emptyBoard;
         }
     }
 }
