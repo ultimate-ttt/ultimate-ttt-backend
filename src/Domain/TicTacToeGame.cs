@@ -98,17 +98,22 @@ namespace UltimateTicTacToe.Domain
             Move lastMove = _moves.Last();
             Position lastMoveTilePosition = lastMove.TilePosition;
 
-            SmallBoardInformation nextBoardFromLastMove = _board[lastMoveTilePosition.X][lastMoveTilePosition.Y];
+            SmallBoardInformation nextBoardFromLastMove =
+                _board[lastMoveTilePosition.X][lastMoveTilePosition.Y];
+
             if (nextBoardFromLastMove.Value == TileValue.Empty)
             {
+                // the active board is empty ==> can play here
                 if (lastMoveTilePosition.Equals(positionToValidate))
                 {
+                    // the Position is on this board ==> valid
                     return;
                 }
 
                 throw new IllegalPositionException();
             }
 
+            // SmallBoard is full ==> all active | Check if the position is not finished yet
             if (_board[positionToValidate.X][positionToValidate.Y].Value == TileValue.Empty)
             {
                 return;
@@ -166,8 +171,7 @@ namespace UltimateTicTacToe.Domain
                 {
                     _board[x][y] = new SmallBoardInformation
                     {
-                        Value = TileValue.Empty,
-                        Tiles = GenerateTiles(x, y)
+                        Value = TileValue.Empty, Tiles = GenerateTiles(x, y)
                     };
                 }
             }
@@ -184,8 +188,7 @@ namespace UltimateTicTacToe.Domain
                 {
                     tiles[x][y] = new SmallTileInformation
                     {
-                        BoardPosition = new Position(boardX, boardY),
-                        Value = TileValue.Empty,
+                        BoardPosition = new Position(boardX, boardY), Value = TileValue.Empty,
                     };
                 }
             }
