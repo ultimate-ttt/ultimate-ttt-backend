@@ -98,7 +98,8 @@ namespace UltimateTicTacToe.Domain
             Move lastMove = _moves.Last();
             Position lastMoveTilePosition = lastMove.TilePosition;
 
-            if (_board[lastMoveTilePosition.X][lastMoveTilePosition.Y].Value == TileValue.Empty)
+            SmallBoardInformation nextBoardFromLastMove = _board[lastMoveTilePosition.X][lastMoveTilePosition.Y];
+            if (nextBoardFromLastMove.Value == TileValue.Empty)
             {
                 if (lastMoveTilePosition.Equals(positionToValidate))
                 {
