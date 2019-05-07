@@ -12,14 +12,14 @@ namespace UltimateTicTacToe.Domain.Tests
         private void GetWinner_EmptyBoard_ReturnsWinnerNone(Player lastPlayer)
         {
             // arrange
-            var emtyBoard =  new SmallTileInformation[3][];
+            var emptyBoard =  new SmallTileInformation[3][];
 
             for (int x = 0; x < 3; x++)
             {
-                emtyBoard[x] = new SmallTileInformation[3];
+                emptyBoard[x] = new SmallTileInformation[3];
                 for (int y = 0; y < 3; y++)
                 {
-                    emtyBoard[x][y] = new SmallTileInformation
+                    emptyBoard[x][y] = new SmallTileInformation
                     {
                         Value = TileValue.Empty,
                     };
@@ -27,7 +27,7 @@ namespace UltimateTicTacToe.Domain.Tests
             }
 
             // act
-            var winner = emtyBoard.GetWinner(lastPlayer);
+            var winner = emptyBoard.GetWinner(lastPlayer);
 
             // assert
             winner.Should().Be(Winner.None);
