@@ -9,7 +9,7 @@ namespace UltimateTicTacToe.Domain.Tests
         [Theory]
         [InlineData(Player.Circle)]
         [InlineData(Player.Cross)]
-        private void GetWinner_EmptyBoard_ReturnsWinnerNone(Player lastPlayer)
+        public void GetWinner_EmptyBoard_ReturnsWinnerNone(Player lastPlayer)
         {
             // arrange
             var emptyBoard =  GetEmptyBoard();
@@ -28,7 +28,7 @@ namespace UltimateTicTacToe.Domain.Tests
         [InlineData(0, Player.Circle)]
         [InlineData(1, Player.Circle)]
         [InlineData(2, Player.Circle)]
-        private void GetWinner_LinesHorizontalWinner_ReturnsCorrectWinner(int x, Player p)
+        public void GetWinner_LinesHorizontalWinner_ReturnsCorrectWinner(int x, Player p)
         {
             // arrange
             var board = GetEmptyBoard();
@@ -51,7 +51,7 @@ namespace UltimateTicTacToe.Domain.Tests
         [InlineData(0, Player.Circle)]
         [InlineData(1, Player.Circle)]
         [InlineData(2, Player.Circle)]
-        private void GetWinner_LinesVerticalWinner_ReturnsCorrectWinner(int y, Player p)
+        public void GetWinner_LinesVerticalWinner_ReturnsCorrectWinner(int y, Player p)
         {
             // arrange
             var board = GetEmptyBoard();
@@ -70,7 +70,7 @@ namespace UltimateTicTacToe.Domain.Tests
         [Theory]
         [InlineData(Player.Circle)]
         [InlineData(Player.Cross)]
-        private void GetWinner_DiagonalTopLeftToBottomRightWinner_ReturnsCorrectWinner(Player p)
+        public void GetWinner_DiagonalTopLeftToBottomRightWinner_ReturnsCorrectWinner(Player p)
         {
             // arrange
             var board = GetEmptyBoard();
@@ -88,7 +88,7 @@ namespace UltimateTicTacToe.Domain.Tests
         [Theory]
         [InlineData(Player.Circle)]
         [InlineData(Player.Cross)]
-        private void GetWinner_DiagonalBottomLeftToTopRightWinner_ReturnsCorrectWinner(Player p)
+        public void GetWinner_DiagonalBottomLeftToTopRightWinner_ReturnsCorrectWinner(Player p)
         {
             // arrange
             var board = GetEmptyBoard();
@@ -101,6 +101,58 @@ namespace UltimateTicTacToe.Domain.Tests
 
             //assert
             winner.Should().Be(p.ToWinner());
+        }
+
+        [Theory]
+        [InlineData(Player.Circle)]
+        [InlineData(Player.Cross)]
+        public void GetWinner_Draw_ReturnsCorrectWinner(Player p)
+        {
+            // arrange
+            var board = GetEmptyBoard();
+            board[0][0].Value = TileValue.Cross;
+            board[0][1].Value = TileValue.Circle;
+            board[0][2].Value = TileValue.Cross;
+
+            board[1][0].Value = TileValue.Circle;
+            board[1][1].Value = TileValue.Cross;
+            board[1][2].Value = TileValue.Circle;
+
+            board[2][0].Value = TileValue.Circle;
+            board[2][1].Value = TileValue.Cross;
+            board[2][2].Value = TileValue.Circle;
+
+            //act
+            var winner = board.GetWinner(p);
+
+            //assert
+            winner.Should().Be(Winner.Draw);
+        }
+
+        [Theory]
+        [InlineData(Player.Circle)]
+        [InlineData(Player.Cross)]
+        public void GetWinner_NoWinner_ReturnsCorrectWinner(Player p)
+        {
+            // arrange
+            var board = GetEmptyBoard();
+            board[0][0].Value = TileValue.Cross;
+            board[0][1].Value = TileValue.Empty;
+            board[0][2].Value = TileValue.Cross;
+
+            board[1][0].Value = TileValue.Circle;
+            board[1][1].Value = TileValue.Empty;
+            board[1][2].Value = TileValue.Circle;
+
+            board[2][0].Value = TileValue.Empty;
+            board[2][1].Value = TileValue.Cross;
+            board[2][2].Value = TileValue.Circle;
+
+            //act
+            var winner = board.GetWinner(p);
+
+            //assert
+            winner.Should().Be(Winner.None);
         }
 
 
