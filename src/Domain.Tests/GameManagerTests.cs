@@ -62,7 +62,8 @@ namespace UltimateTicTacToe.Domain.Tests
         public async Task CreateGame_ReturnsValidNewGame()
         {
             // arrange
-            var gameManager = new GameManager(Mock.Of<IGameRepository>(), Mock.Of<IMoveRepository>(),
+            var gameManager = new GameManager(Mock.Of<IGameRepository>(),
+                Mock.Of<IMoveRepository>(),
                 Mock.Of<IMoveValidator>());
 
             // act
@@ -91,7 +92,8 @@ namespace UltimateTicTacToe.Domain.Tests
             var game = await gameManager.CreateGame(CancellationToken.None);
 
             // assert
-            gameRepositoryMock.Verify(m => m.Save(It.IsAny<Game>(), CancellationToken.None), Times.Once);
+            gameRepositoryMock.Verify(m => m.Save(It.IsAny<Game>(), CancellationToken.None),
+                Times.Once);
         }
 
         [Fact]
@@ -108,10 +110,7 @@ namespace UltimateTicTacToe.Domain.Tests
             Mock<IGameRepository> gameRepositoryMock = new Mock<IGameRepository>();
             gameRepositoryMock
                 .Setup(r => r.GetById("abc", CancellationToken.None))
-                .ReturnsAsync(new Game{
-                    Id = "abc",
-                    Winner = Winner.None
-                });
+                .ReturnsAsync(new Game {Id = "abc", Winner = Winner.None});
 
             Mock<IMoveValidator> moveValidatorMock = new Mock<IMoveValidator>();
             moveValidatorMock
@@ -139,6 +138,38 @@ namespace UltimateTicTacToe.Domain.Tests
             // assert
             moveRepositoryMock
                 .Verify(m => m.Save(It.IsAny<Move>(), CancellationToken.None), Times.Once);
+        }
+
+
+        [Fact]
+        public async Task Move_NonExistentGame_ReturnsMoveInvalid()
+        {
+            // arrange
+            var move = new Move
+            {
+                GameId = "abc",
+                BoardPosition = new Position {X = 1, Y = 0},
+                TilePosition = new Position {X = 0, Y = 0},
+                Player = Player.Cross
+            };
+            Mock<IGameRepository> gameRepositoryMock = new Mock<IGameRepository>();
+            gameRepositoryMock
+                .Setup(r => r.GetById("abc", CancellationToken.None))
+                .ReturnsAsync((Game)null);
+
+
+            var gameManager = new GameManager(
+                gameRepositoryMock.Object,
+                Mock.Of<IMoveRepository>(),
+                Mock.Of<IMoveValidator>());
+
+            // act
+            var result =
+                await gameManager.Move(
+                    move, CancellationToken.None);
+
+            // assert
+            result.IsValid.Should().BeFalse();
         }
     }
 }
