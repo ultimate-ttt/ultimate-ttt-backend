@@ -134,7 +134,7 @@ namespace UltimateTicTacToe.Domain
 
         private void ValidateIsPlayersMove(Player player)
         {
-            if (_currentPlayer.Equals(player))
+            if (_currentPlayer != player)
             {
                 throw new InvalidPlayerException();
             }
