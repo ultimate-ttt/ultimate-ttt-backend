@@ -9,6 +9,8 @@ namespace UltimateTicTacToe.Domain.Tests
 {
     public class TicTacToeGameTests
     {
+        #region Constructor
+
         [Fact]
         public void Constructor_MovesNull_ThrowsArgumentException()
         {
@@ -22,6 +24,10 @@ namespace UltimateTicTacToe.Domain.Tests
             //assert
             a.Should().Throw<ArgumentNullException>();
         }
+
+        #endregion
+
+        #region Correct Player at start
 
         [Fact]
         public void Move_FistMoveByCircle_InvalidMove()
@@ -63,8 +69,25 @@ namespace UltimateTicTacToe.Domain.Tests
             result.InvalidReason.Should().BeNull();
         }
 
-        //TODO: Todo play one entire game in a Test
+        #endregion
+
+        #region Invalid Positions
+
         //TODO: test if it reacts correctly to invalid positions (not on the board)
+
+        #endregion
+
+        #region Game Finished
+
         //TODO: validate if it reacts correctly if there is already a winner
+
+        #endregion
+
+
+        #region PlayEntireGame
+
+        //TODO: Todo play one entire game in a Test
+
+        #endregion
     }
 }
