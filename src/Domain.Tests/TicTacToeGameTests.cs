@@ -185,7 +185,151 @@ namespace UltimateTicTacToe.Domain.Tests
 
         #region Game Finished
 
-        //TODO: validate if it reacts correctly if there is already a winner
+        [Fact]
+        private void Move_GameFinished_NoMovePossible()
+        {
+            // arrange
+
+            #region Moves of a finished Game
+
+            List<Move> movesForFinishedGame = new List<Move>
+            {
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(0, 0),
+                    MoveNumber = 1
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(2, 0),
+                    MoveNumber = 2
+                },
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(2, 0),
+                    TilePosition = new Position(0, 2),
+                    MoveNumber = 3
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(0, 2),
+                    TilePosition = new Position(2, 0),
+                    MoveNumber = 4
+                },
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(2, 0),
+                    TilePosition = new Position(0, 1),
+                    MoveNumber = 5
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(0, 1),
+                    TilePosition = new Position(2, 0),
+                    MoveNumber = 6
+                },
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(2, 0),
+                    TilePosition = new Position(0, 0),
+                    MoveNumber = 7
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(1, 0),
+                    MoveNumber = 8
+                },
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(1, 0),
+                    TilePosition = new Position(2, 2),
+                    MoveNumber = 9
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(2, 2),
+                    TilePosition = new Position(0, 0),
+                    MoveNumber = 10
+                }, new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(0, 1),
+                    MoveNumber = 11
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(0, 1),
+                    TilePosition = new Position(0, 0),
+                    MoveNumber = 12
+                },
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(0, 2),
+                    MoveNumber = 13
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(0, 2),
+                    TilePosition = new Position(1, 0),
+                    MoveNumber = 14
+                }, new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(1, 0),
+                    TilePosition = new Position(2, 0),
+                    MoveNumber = 15
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(1, 1),
+                    TilePosition = new Position(1, 0),
+                    MoveNumber = 16
+                },
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(1, 0),
+                    TilePosition = new Position(2, 1),
+                    MoveNumber = 16
+                }
+            };
+
+            #endregion
+
+            var game = new TicTacToeGame(movesForFinishedGame);
+
+            //act
+            var result = game.Move(new Move
+            {
+                Player = Player.Cross,
+                BoardPosition = new Position(2, 1),
+                TilePosition = new Position(2, 1),
+                MoveNumber = 1
+            });
+
+            //assert
+            result.IsValid.Should().BeFalse();
+            result.InvalidReason.Should().Be(ExceptionMessages.GameFinished);
+        }
 
         #endregion
 
