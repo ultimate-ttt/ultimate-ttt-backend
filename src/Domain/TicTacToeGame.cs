@@ -203,6 +203,7 @@ namespace UltimateTicTacToe.Domain
 
         private void ApplyMoves(List<Move> moves)
         {
+            //TODO: test what happens if not all moves are valid
             moves.ForEach(m => Move(m));
         }
 
