@@ -12,5 +12,7 @@ namespace UltimateTicTacToe.Domain.Abstractions.Exceptions
 
 
         }
+
+        public MoveResult MoveResult { get; set; }
     }
 }

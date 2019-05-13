@@ -323,7 +323,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 Player = Player.Circle,
                 BoardPosition = new Position(2, 1),
                 TilePosition = new Position(2, 1),
-                MoveNumber = 1
+                MoveNumber = 17
             });
 
             //assert
@@ -336,7 +336,33 @@ namespace UltimateTicTacToe.Domain.Tests
 
         #region PlayEntireGame
 
-        //TODO: Todo play one entire game in a Test
+        [Fact]
+        public void Move_ValidFirstMove_CircleCanMakeSecondMove()
+        {
+            // arrange
+            var game = new TicTacToeGame(new[]{
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(0, 0),
+                    MoveNumber = 1
+                }
+            });
+
+            // act
+            var result = game.Move(new Move
+            {
+
+                Player = Player.Circle,
+                BoardPosition = new Position(0, 0),
+                TilePosition = new Position(2, 0),
+                MoveNumber = 2
+            });
+
+            // assert
+            result.IsValid.Should().BeTrue();
+        }
 
         #endregion
     }

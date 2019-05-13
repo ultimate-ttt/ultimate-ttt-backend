@@ -14,7 +14,7 @@ namespace UltimateTicTacToe.Domain
         private Player _currentPlayer;
         private Winner _winner;
 
-        public TicTacToeGame(List<Move> moves)
+        public TicTacToeGame(IEnumerable<Move> moves)
         {
             if (moves == null)
             {
@@ -201,15 +201,18 @@ namespace UltimateTicTacToe.Domain
             return tiles;
         }
 
-        private void ApplyMoves(List<Move> moves)
+        private void ApplyMoves(IEnumerable<Move> moves)
         {
-            //TODO: test what happens if not all moves are valid
+
             foreach (Move m in moves)
             {
                 var result = Move(m);
 
                 if(!result.IsValid){
-                    throw new InvalidInitializationException(m.MoveNumber);
+                    //TODO: test this case
+                    throw new InvalidInitializationException(m.MoveNumber){
+                        MoveResult = result
+                    };
                 }
             }
         }
