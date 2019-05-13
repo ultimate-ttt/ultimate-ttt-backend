@@ -88,7 +88,7 @@ namespace UltimateTicTacToe.Domain
         {
             if (tile.Value != TileValue.Empty)
             {
-                throw new TileNotEmtpyException();
+                throw new TileNotEmptyException();
             }
         }
 
@@ -204,7 +204,14 @@ namespace UltimateTicTacToe.Domain
         private void ApplyMoves(List<Move> moves)
         {
             //TODO: test what happens if not all moves are valid
-            moves.ForEach(m => Move(m));
+            foreach (Move m in moves)
+            {
+                var result = Move(m);
+
+                if(!result.IsValid){
+                    throw new InvalidInitializationException(m.MoveNumber);
+                }
+            }
         }
 
         #endregion

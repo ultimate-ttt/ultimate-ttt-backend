@@ -2,13 +2,13 @@ using System;
 
 namespace UltimateTicTacToe.Domain.Abstractions.Exceptions
 {
-    public class TileNotEmtpyException : InvalidMoveException
+    public class TileNotEmptyException : InvalidMoveException
     {
-        public TileNotEmtpyException() : base(ExceptionMessages.TileNotEmpty)
+        public TileNotEmptyException() : base(ExceptionMessages.TileNotEmpty)
         {
         }
 
-        public TileNotEmtpyException(Exception inner) : base(ExceptionMessages.TileNotEmpty, inner)
+        public TileNotEmptyException(Exception inner) : base(ExceptionMessages.TileNotEmpty, inner)
         {
         }
     }
