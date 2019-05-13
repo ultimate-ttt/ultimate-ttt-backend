@@ -353,7 +353,6 @@ namespace UltimateTicTacToe.Domain.Tests
             // act
             var result = game.Move(new Move
             {
-
                 Player = Player.Circle,
                 BoardPosition = new Position(0, 0),
                 TilePosition = new Position(2, 0),
