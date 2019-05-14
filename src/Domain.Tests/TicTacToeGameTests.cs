@@ -263,7 +263,8 @@ namespace UltimateTicTacToe.Domain.Tests
                     BoardPosition = new Position(2, 2),
                     TilePosition = new Position(0, 0),
                     MoveNumber = 10
-                }, new Move
+                },
+                new Move
                 {
                     Player = Player.Cross,
                     BoardPosition = new Position(0, 0),
@@ -290,7 +291,8 @@ namespace UltimateTicTacToe.Domain.Tests
                     BoardPosition = new Position(0, 2),
                     TilePosition = new Position(1, 0),
                     MoveNumber = 14
-                }, new Move
+                },
+                new Move
                 {
                     Player = Player.Cross,
                     BoardPosition = new Position(1, 0),
@@ -333,14 +335,12 @@ namespace UltimateTicTacToe.Domain.Tests
 
         #endregion
 
-
-        #region PlayEntireGame
-
         [Fact]
         public void Move_ValidFirstMove_CircleCanMakeSecondMove()
         {
             // arrange
-            var game = new TicTacToeGame(new[]{
+            var game = new TicTacToeGame(new[]
+            {
                 new Move
                 {
                     Player = Player.Cross,
@@ -363,6 +363,40 @@ namespace UltimateTicTacToe.Domain.Tests
             result.IsValid.Should().BeTrue();
         }
 
-        #endregion
+        [Fact]
+        public void Move_MoveOnFiledTile_InvalidMove()
+        {
+            // arrange
+            var game = new TicTacToeGame(new[]
+            {
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(2, 0),
+                    MoveNumber = 1
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(2, 0),
+                    TilePosition = new Position(2, 0),
+                    MoveNumber = 2
+                }
+            });
+
+            // act
+            var result = game.Move(new Move
+            {
+                Player = Player.Cross,
+                BoardPosition = new Position(2, 0),
+                TilePosition = new Position(2, 0),
+                MoveNumber = 2
+            });
+
+            // assert
+            result.IsValid.Should().BeFalse();
+            result.InvalidReason.Should().Be(ExceptionMessages.TileNotEmpty);
+        }
     }
 }
