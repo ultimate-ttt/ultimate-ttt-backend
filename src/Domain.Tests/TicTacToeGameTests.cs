@@ -25,6 +25,26 @@ namespace UltimateTicTacToe.Domain.Tests
             a.Should().Throw<ArgumentNullException>();
         }
 
+        [Fact]
+        public void Constructor_InvalidMoves_ThrowsInvalidInitializationException()
+        {
+            // arrange
+
+            //act
+            Action a = () =>
+            {
+                new TicTacToeGame(new[]{new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(-1,-1),
+                    TilePosition = new Position(-1,-1),
+                     MoveNumber = 1
+                } });
+            };
+            //assert
+            a.Should().Throw<InvalidInitializationException>();
+        }
+
         #endregion
 
         #region Correct Player at start
