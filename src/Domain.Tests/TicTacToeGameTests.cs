@@ -364,7 +364,7 @@ namespace UltimateTicTacToe.Domain.Tests
         }
 
         [Fact]
-        public void Move_MoveOnFiledTile_InvalidMove()
+        public void Move_MoveOnFilledTile_InvalidMoveTileNotEmpty()
         {
             // arrange
             var game = new TicTacToeGame(new[]
@@ -397,6 +397,35 @@ namespace UltimateTicTacToe.Domain.Tests
             // assert
             result.IsValid.Should().BeFalse();
             result.InvalidReason.Should().Be(ExceptionMessages.TileNotEmpty);
+        }
+
+        [Fact]
+        public void Move_MoveOnWrongBoard_InvalidMoveInvalidPosition()
+        {
+            // arrange
+            var game = new TicTacToeGame(new[]
+            {
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(2, 0),
+                    MoveNumber = 1
+                }
+            });
+
+            // act
+            var result = game.Move(new Move
+            {
+                Player = Player.Circle,
+                BoardPosition = new Position(2, 1),
+                TilePosition = new Position(2, 0),
+                MoveNumber = 2
+            });
+
+            // assert
+            result.IsValid.Should().BeFalse();
+            result.InvalidReason.Should().Be(ExceptionMessages.IllegalPosition);
         }
     }
 }
