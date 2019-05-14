@@ -2,7 +2,7 @@ using System;
 
 namespace UltimateTicTacToe.Abstractions
 {
-    public class Position : IEquatable<Position>
+    public sealed class Position : IEquatable<Position>
     {
         public Position()
         {
