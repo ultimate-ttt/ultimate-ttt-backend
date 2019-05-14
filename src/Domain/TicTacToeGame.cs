@@ -88,7 +88,6 @@ namespace UltimateTicTacToe.Domain
         {
             if (tile.Value != TileValue.Empty)
             {
-                //TODO: test this case
                 throw new TileNotEmptyException();
             }
         }
@@ -116,7 +115,6 @@ namespace UltimateTicTacToe.Domain
                     return;
                 }
 
-                //TODO: test this case
                 throw new IllegalPositionException();
             }
 
@@ -126,7 +124,6 @@ namespace UltimateTicTacToe.Domain
                 return;
             }
 
-            //TODO: test this case
             throw new IllegalPositionException();
         }
 
@@ -151,7 +148,6 @@ namespace UltimateTicTacToe.Domain
             }
             catch (IndexOutOfRangeException ex)
             {
-                //TODO: test this case
                 throw new InvalidPositionException(ex);
             }
         }
@@ -164,7 +160,6 @@ namespace UltimateTicTacToe.Domain
             }
             catch (IndexOutOfRangeException ex)
             {
-                //TODO: test this case
                 throw new InvalidPositionException(ex);
             }
         }
@@ -214,7 +209,6 @@ namespace UltimateTicTacToe.Domain
                 var result = Move(m);
 
                 if(!result.IsValid){
-                    //TODO: test this case
                     throw new InvalidInitializationException(m.MoveNumber){
                         MoveResult = result
                     };
