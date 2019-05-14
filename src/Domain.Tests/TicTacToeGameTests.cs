@@ -427,5 +427,62 @@ namespace UltimateTicTacToe.Domain.Tests
             result.IsValid.Should().BeFalse();
             result.InvalidReason.Should().Be(ExceptionMessages.IllegalPosition);
         }
+
+        [Fact]
+        public void Move_MoveOnValidButFullBoard_InvalidMoveInvalidPosition()
+        {
+            // arrange
+            var game = new TicTacToeGame(new[]
+            {
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(2, 0),
+                    MoveNumber = 1
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(2, 0),
+                    TilePosition = new Position(0, 0),
+                    MoveNumber = 2
+                },
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(1, 0),
+                    MoveNumber = 3
+                },
+                new Move
+                {
+                    Player = Player.Circle,
+                    BoardPosition = new Position(1, 0),
+                    TilePosition = new Position(0, 0),
+                    MoveNumber = 4
+                },
+                new Move
+                {
+                    Player = Player.Cross,
+                    BoardPosition = new Position(0, 0),
+                    TilePosition = new Position(0, 0),
+                    MoveNumber = 5
+                },
+            });
+
+            // act
+            var result = game.Move(new Move
+            {
+                Player = Player.Circle,
+                BoardPosition = new Position(0, 0),
+                TilePosition = new Position(0, 0),
+                MoveNumber = 2
+            });
+
+            // assert
+            result.IsValid.Should().BeFalse();
+            result.InvalidReason.Should().Be(ExceptionMessages.IllegalPosition);
+        }
     }
 }
