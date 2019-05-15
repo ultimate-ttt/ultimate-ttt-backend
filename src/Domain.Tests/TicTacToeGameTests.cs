@@ -331,7 +331,7 @@ namespace UltimateTicTacToe.Domain.Tests
                     Player = Player.Cross,
                     BoardPosition = new Position(1, 0),
                     TilePosition = new Position(2, 1),
-                    MoveNumber = 16
+                    MoveNumber = 17
                 }
             };
 
@@ -345,7 +345,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 Player = Player.Circle,
                 BoardPosition = new Position(2, 1),
                 TilePosition = new Position(2, 1),
-                MoveNumber = 17
+                MoveNumber = 18
             });
 
             // assert
@@ -411,7 +411,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 Player = Player.Cross,
                 BoardPosition = new Position(2, 0),
                 TilePosition = new Position(2, 0),
-                MoveNumber = 2
+                MoveNumber = 3
             });
 
             // assert

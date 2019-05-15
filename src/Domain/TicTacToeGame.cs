@@ -176,7 +176,8 @@ namespace UltimateTicTacToe.Domain
                 {
                     _board[x][y] = new SmallBoardInformation
                     {
-                        Value = TileValue.Empty, Tiles = GenerateTiles(x, y)
+                        Value = TileValue.Empty,
+                        Tiles = GenerateTiles(x, y)
                     };
                 }
             }
@@ -193,7 +194,8 @@ namespace UltimateTicTacToe.Domain
                 {
                     tiles[x][y] = new SmallTileInformation
                     {
-                        BoardPosition = new Position(boardX, boardY), Value = TileValue.Empty,
+                        BoardPosition = new Position(boardX, boardY),
+                        Value = TileValue.Empty,
                     };
                 }
             }
@@ -208,8 +210,10 @@ namespace UltimateTicTacToe.Domain
             {
                 var result = Move(m);
 
-                if(!result.IsValid){
-                    throw new InvalidInitializationException(m.MoveNumber){
+                if (!result.IsValid)
+                {
+                    throw new InvalidInitializationException(m.MoveNumber)
+                    {
                         MoveResult = result
                     };
                 }
