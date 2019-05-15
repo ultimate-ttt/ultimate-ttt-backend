@@ -10,10 +10,10 @@ namespace UltimateTicTacToe.Domain.Tests
         {
             // arrange
 
-            //act
+            // act
             var id = ReadableIdGenerator.NewId();
 
-            //assert
+            // assert
             id.Should().NotBeNullOrWhiteSpace();
         }
     }

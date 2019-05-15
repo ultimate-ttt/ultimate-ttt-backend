@@ -12,10 +12,10 @@ namespace UltimateTicTacToe.Abstractions.Tests
         {
             // arrange
 
-            //act
+            // act
             var result = input.ToTileValue();
 
-            //assert
+            // assert
             result.Should().Be(expectedOutput);
         }
 
@@ -26,10 +26,10 @@ namespace UltimateTicTacToe.Abstractions.Tests
         {
             // arrange
 
-            //act
+            // act
             var result = input.ToWinner();
 
-            //assert
+            // assert
             result.Should().Be(expectedOutput);
         }
 
@@ -40,10 +40,10 @@ namespace UltimateTicTacToe.Abstractions.Tests
         {
             // arrange
 
-            //act
+            // act
             var result = input.Invert();
 
-            //assert
+            // assert
             result.Should().Be(expectedOutput);
         }
 
@@ -56,10 +56,10 @@ namespace UltimateTicTacToe.Abstractions.Tests
         {
             // arrange
 
-            //act
+            // act
             var result = input.ToTileValue();
 
-            //assert
+            // assert
             result.Should().Be(expectedOutput);
         }
     }

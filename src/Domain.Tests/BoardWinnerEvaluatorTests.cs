@@ -37,10 +37,10 @@ namespace UltimateTicTacToe.Domain.Tests
                 board[x][y].Value = p.ToTileValue();
             }
 
-            //act
+            // act
             var winner = board.GetWinner(p);
 
-            //assert
+            // assert
             winner.Should().Be(p.ToWinner());
         }
 
@@ -60,10 +60,10 @@ namespace UltimateTicTacToe.Domain.Tests
                 board[x][y].Value = p.ToTileValue();
             }
 
-            //act
+            // act
             var winner = board.GetWinner(p);
 
-            //assert
+            // assert
             winner.Should().Be(p.ToWinner());
         }
 
@@ -78,10 +78,10 @@ namespace UltimateTicTacToe.Domain.Tests
             board[1][1].Value = p.ToTileValue();
             board[2][2].Value = p.ToTileValue();
 
-            //act
+            // act
             var winner = board.GetWinner(p);
 
-            //assert
+            // assert
             winner.Should().Be(p.ToWinner());
         }
 
@@ -96,10 +96,10 @@ namespace UltimateTicTacToe.Domain.Tests
             board[1][1].Value = p.ToTileValue();
             board[0][2].Value = p.ToTileValue();
 
-            //act
+            // act
             var winner = board.GetWinner(p);
 
-            //assert
+            // assert
             winner.Should().Be(p.ToWinner());
         }
 
@@ -122,10 +122,10 @@ namespace UltimateTicTacToe.Domain.Tests
             board[2][1].Value = TileValue.Cross;
             board[2][2].Value = TileValue.Circle;
 
-            //act
+            // act
             var winner = board.GetWinner(p);
 
-            //assert
+            // assert
             winner.Should().Be(Winner.Draw);
         }
 
@@ -148,10 +148,10 @@ namespace UltimateTicTacToe.Domain.Tests
             board[2][1].Value = TileValue.Cross;
             board[2][2].Value = TileValue.Circle;
 
-            //act
+            // act
             var winner = board.GetWinner(p);
 
-            //assert
+            // assert
             winner.Should().Be(Winner.None);
         }
 

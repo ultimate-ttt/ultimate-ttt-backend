@@ -16,12 +16,12 @@ namespace UltimateTicTacToe.Domain.Tests
         {
             // arrange
 
-            //act
+            // act
             Action a = () =>
             {
                 new TicTacToeGame(null);
             };
-            //assert
+            // assert
             a.Should().Throw<ArgumentNullException>();
         }
 
@@ -30,7 +30,7 @@ namespace UltimateTicTacToe.Domain.Tests
         {
             // arrange
 
-            //act
+            // act
             Action a = () =>
             {
                 new TicTacToeGame(new[]{new Move
@@ -41,7 +41,7 @@ namespace UltimateTicTacToe.Domain.Tests
                      MoveNumber = 1
                 } });
             };
-            //assert
+            // assert
             a.Should().Throw<InvalidInitializationException>();
         }
 
@@ -55,7 +55,7 @@ namespace UltimateTicTacToe.Domain.Tests
             // arrange
             var game = new TicTacToeGame(new List<Move>());
 
-            //act
+            // act
             var result = game.Move(new Move
             {
                 Player = Player.Circle,
@@ -64,7 +64,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 MoveNumber = 1
             });
 
-            //assert
+            // assert
             result.IsValid.Should().BeFalse();
             result.InvalidReason.Should().Be(ExceptionMessages.InvalidPlayer);
         }
@@ -75,7 +75,7 @@ namespace UltimateTicTacToe.Domain.Tests
             // arrange
             var game = new TicTacToeGame(new List<Move>());
 
-            //act
+            // act
             var result = game.Move(new Move
             {
                 Player = Player.Cross,
@@ -84,7 +84,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 MoveNumber = 1
             });
 
-            //assert
+            // assert
             result.IsValid.Should().BeTrue();
             result.InvalidReason.Should().BeNull();
         }
@@ -105,7 +105,7 @@ namespace UltimateTicTacToe.Domain.Tests
             // arrange
             var game = new TicTacToeGame(new List<Move>());
 
-            //act
+            // act
             var result = game.Move(new Move
             {
                 Player = Player.Cross,
@@ -114,7 +114,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 MoveNumber = 1
             });
 
-            //assert
+            // assert
             result.IsValid.Should().BeFalse();
             result.InvalidReason.Should().Be(ExceptionMessages.InvalidPosition);
         }
@@ -134,7 +134,7 @@ namespace UltimateTicTacToe.Domain.Tests
             // arrange
             var game = new TicTacToeGame(new List<Move>());
 
-            //act
+            // act
             var result = game.Move(new Move
             {
                 Player = Player.Cross,
@@ -143,7 +143,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 MoveNumber = 1
             });
 
-            //assert
+            // assert
             result.IsValid.Should().BeTrue();
         }
 
@@ -159,7 +159,7 @@ namespace UltimateTicTacToe.Domain.Tests
             // arrange
             var game = new TicTacToeGame(new List<Move>());
 
-            //act
+            // act
             var result = game.Move(new Move
             {
                 Player = Player.Cross,
@@ -168,7 +168,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 MoveNumber = 1
             });
 
-            //assert
+            // assert
             result.IsValid.Should().BeFalse();
             result.InvalidReason.Should().Be(ExceptionMessages.InvalidPosition);
         }
@@ -188,7 +188,7 @@ namespace UltimateTicTacToe.Domain.Tests
             // arrange
             var game = new TicTacToeGame(new List<Move>());
 
-            //act
+            // act
             var result = game.Move(new Move
             {
                 Player = Player.Cross,
@@ -197,7 +197,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 MoveNumber = 1
             });
 
-            //assert
+            // assert
             result.IsValid.Should().BeTrue();
         }
 
@@ -339,7 +339,7 @@ namespace UltimateTicTacToe.Domain.Tests
 
             var game = new TicTacToeGame(movesForFinishedGame);
 
-            //act
+            // act
             var result = game.Move(new Move
             {
                 Player = Player.Circle,
@@ -348,7 +348,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 MoveNumber = 17
             });
 
-            //assert
+            // assert
             result.IsValid.Should().BeFalse();
             result.InvalidReason.Should().Be(ExceptionMessages.GameFinished);
         }

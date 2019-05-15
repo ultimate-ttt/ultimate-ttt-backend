@@ -24,10 +24,10 @@ namespace UltimateTicTacToe.Abstractions.Tests
             // arrange
             var position1 = new Position(p1X, p1Y);
             var position2 = new Position(p2X, p2Y);
-            //act
+            // act
             bool result = position1.Equals(position2);
 
-            //assert
+            // assert
             result.Should().Be(isEqual);
         }
 
@@ -37,10 +37,10 @@ namespace UltimateTicTacToe.Abstractions.Tests
             // arrange
             Position p = new Position(0,0);
 
-            //act
+            // act
             bool result = p.Equals(null);
 
-            //assert
+            // assert
             result.Should().BeFalse();
 
         }
