@@ -19,14 +19,9 @@ namespace UltimateTicTacToe.Abstractions
 
         public bool Equals(Position other)
         {
-            if (ReferenceEquals(null, other))
+            if (other == null)
             {
                 return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
             }
 
             return X == other.X && Y == other.Y;
