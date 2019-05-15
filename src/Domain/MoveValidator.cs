@@ -18,7 +18,7 @@ namespace UltimateTicTacToe.Domain
 
         public async Task<MoveResult> ValidateMoveAsync(Move m, CancellationToken ctx)
         {
-            var moves = await GetMovesForGameAsync(m.GameId, ctx);
+            List<Move> moves = await GetMovesForGameAsync(m.GameId, ctx);
             m.MoveNumber = moves.Count + 1;
 
             var game = new TicTacToeGame(moves);

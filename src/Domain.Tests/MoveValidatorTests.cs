@@ -5,6 +5,7 @@ using FluentAssertions;
 using Moq;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Data.Abstractions;
+using UltimateTicTacToe.Domain.Abstractions;
 using Xunit;
 
 namespace UltimateTicTacToe.Domain.Tests
@@ -15,7 +16,7 @@ namespace UltimateTicTacToe.Domain.Tests
         public async Task ValidateMoveAsync_FirstMove_CorrectMoveNumber()
         {
             // arrange
-            Mock<IMoveRepository> moveRepositoryMock = new Mock<IMoveRepository>();
+            var moveRepositoryMock = new Mock<IMoveRepository>();
             moveRepositoryMock
                 .Setup(m => m.GetMovesForGame(It.IsAny<string>(), CancellationToken.None))
                 .Returns(() => Task.FromResult(new List<Move>()))
@@ -24,12 +25,20 @@ namespace UltimateTicTacToe.Domain.Tests
             var gameManager = new MoveValidator(moveRepositoryMock.Object);
 
             // act
-            var result = await gameManager.ValidateMoveAsync(
+            MoveResult result = await gameManager.ValidateMoveAsync(
                 new Move
                 {
                     GameId = "abc",
-                    BoardPosition = new Position {X = 0, Y = 0},
-                    TilePosition = new Position {X = 0, Y = 0},
+                    BoardPosition = new Position
+                    {
+                        X = 0,
+                        Y = 0
+                    },
+                    TilePosition = new Position
+                    {
+                        X = 0,
+                        Y = 0
+                    },
                     Player = Player.Cross
                 }, CancellationToken.None);
 
@@ -41,7 +50,7 @@ namespace UltimateTicTacToe.Domain.Tests
         public async Task ValidateMoveAsync_ValidMove_CorrectMoveNumber()
         {
             // arrange
-            Mock<IMoveRepository> moveRepositoryMock = new Mock<IMoveRepository>();
+            var moveRepositoryMock = new Mock<IMoveRepository>();
             moveRepositoryMock
                 .Setup(m => m.GetMovesForGame(It.IsAny<string>(), CancellationToken.None))
                 .Returns(() => Task.FromResult(new List<Move>
@@ -49,15 +58,31 @@ namespace UltimateTicTacToe.Domain.Tests
                     new Move
                     {
                         GameId = "abc",
-                        BoardPosition = new Position {X = 0, Y = 0},
-                        TilePosition = new Position {X = 0, Y = 0},
+                        BoardPosition = new Position
+                        {
+                            X = 0,
+                            Y = 0
+                        },
+                        TilePosition = new Position
+                        {
+                            X = 0,
+                            Y = 0
+                        },
                         Player = Player.Cross
                     },
                     new Move
                     {
                         GameId = "abc",
-                        BoardPosition = new Position {X = 0, Y = 0},
-                        TilePosition = new Position {X = 1, Y = 0},
+                        BoardPosition = new Position
+                        {
+                            X = 0,
+                            Y = 0
+                        },
+                        TilePosition = new Position
+                        {
+                            X = 1,
+                            Y = 0
+                        },
                         Player = Player.Circle
                     }
                 }))
@@ -66,12 +91,20 @@ namespace UltimateTicTacToe.Domain.Tests
             var gameManager = new MoveValidator(moveRepositoryMock.Object);
 
             // act
-            var result = await gameManager.ValidateMoveAsync(
+            MoveResult result = await gameManager.ValidateMoveAsync(
                 new Move
                 {
                     GameId = "abc",
-                    BoardPosition = new Position {X = 1, Y = 0},
-                    TilePosition = new Position {X = 0, Y = 0},
+                    BoardPosition = new Position
+                    {
+                        X = 1,
+                        Y = 0
+                    },
+                    TilePosition = new Position
+                    {
+                        X = 0,
+                        Y = 0
+                    },
                     Player = Player.Cross
                 }, CancellationToken.None);
 

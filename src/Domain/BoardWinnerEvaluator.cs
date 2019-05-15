@@ -23,7 +23,7 @@ namespace UltimateTicTacToe.Domain
 
         private static bool HasPlayerWonAnyLine(TileInformation[][] tiles, Player p)
         {
-            var lines = tiles.GetAllLinesOfBoard();
+            IEnumerable<IEnumerable<TileInformation>> lines = tiles.GetAllLinesOfBoard();
             return lines.Any(l => HasPlayerWonLine(l, p));
         }
 

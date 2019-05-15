@@ -11,5 +11,4 @@ namespace UltimateTicTacToe.Api.Types
             descriptor.BindFields(BindingBehavior.Implicit);
         }
     }
-
 }

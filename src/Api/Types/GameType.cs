@@ -19,19 +19,11 @@ namespace UltimateTicTacToe.Api.Types
                 .Type<NonNullType<ListType<NonNullType<MoveType>>>>()
                 .Resolver(async r =>
                 {
-                    string gameId = r.Parent<Game>().Id;
-                    IMoveRepository moveRepository = r.Service<IMoveRepository>();
+                    var gameId = r.Parent<Game>().Id;
+                    var moveRepository = r.Service<IMoveRepository>();
 
                     return await moveRepository.GetMovesForGame(gameId, r.RequestAborted);
                 });
-        }
-    }
-
-    public class MoveType : ObjectType<Move>
-    {
-        protected override void Configure(
-            IObjectTypeDescriptor<Move> descriptor)
-        {
         }
     }
 }

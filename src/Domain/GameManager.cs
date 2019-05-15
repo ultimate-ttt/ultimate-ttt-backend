@@ -29,7 +29,7 @@ namespace UltimateTicTacToe.Domain
 
         public async Task<Game> CreateGame(CancellationToken cancellationToken)
         {
-            Game g = new Game
+            var g = new Game
             {
                 Id = ReadableIdGenerator.NewId(),
                 Winner = null,
@@ -52,7 +52,7 @@ namespace UltimateTicTacToe.Domain
                 };
             }
 
-            var result = await _moveValidator.ValidateMoveAsync(m, cancellationToken);
+            MoveResult result = await _moveValidator.ValidateMoveAsync(m, cancellationToken);
 
             if (result.IsValid)
             {
@@ -64,7 +64,7 @@ namespace UltimateTicTacToe.Domain
 
         private async Task<bool> IsGameExistentAsync(string id, CancellationToken ctx)
         {
-            var game = await _gameRepository.GetById(id, ctx);
+            Game game = await _gameRepository.GetById(id, ctx);
             return game != null;
         }
     }

@@ -13,7 +13,7 @@ namespace UltimateTicTacToe.Abstractions.Tests
             // arrange
 
             // act
-            var result = input.ToTileValue();
+            TileValue result = input.ToTileValue();
 
             // assert
             result.Should().Be(expectedOutput);
@@ -27,7 +27,7 @@ namespace UltimateTicTacToe.Abstractions.Tests
             // arrange
 
             // act
-            var result = input.ToWinner();
+            Winner result = input.ToWinner();
 
             // assert
             result.Should().Be(expectedOutput);
@@ -41,7 +41,7 @@ namespace UltimateTicTacToe.Abstractions.Tests
             // arrange
 
             // act
-            var result = input.Invert();
+            Player result = input.Invert();
 
             // assert
             result.Should().Be(expectedOutput);
@@ -57,7 +57,7 @@ namespace UltimateTicTacToe.Abstractions.Tests
             // arrange
 
             // act
-            var result = input.ToTileValue();
+            TileValue result = input.ToTileValue();
 
             // assert
             result.Should().Be(expectedOutput);

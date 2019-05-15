@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using UltimateTicTacToe.Abstractions;
+using UltimateTicTacToe.Domain.Abstractions;
 using UltimateTicTacToe.Domain.Abstractions.Exceptions;
 using Xunit;
 
@@ -33,13 +34,16 @@ namespace UltimateTicTacToe.Domain.Tests
             // act
             Action a = () =>
             {
-                new TicTacToeGame(new[]{new Move
+                new TicTacToeGame(new[]
                 {
-                    Player = Player.Cross,
-                    BoardPosition = new Position(-1,-1),
-                    TilePosition = new Position(-1,-1),
-                     MoveNumber = 1
-                } });
+                    new Move
+                    {
+                        Player = Player.Cross,
+                        BoardPosition = new Position(-1, -1),
+                        TilePosition = new Position(-1, -1),
+                        MoveNumber = 1
+                    }
+                });
             };
             // assert
             a.Should().Throw<InvalidInitializationException>();
@@ -56,7 +60,7 @@ namespace UltimateTicTacToe.Domain.Tests
             var game = new TicTacToeGame(new List<Move>());
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Circle,
                 BoardPosition = new Position(0, 0),
@@ -76,7 +80,7 @@ namespace UltimateTicTacToe.Domain.Tests
             var game = new TicTacToeGame(new List<Move>());
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Cross,
                 BoardPosition = new Position(0, 0),
@@ -106,7 +110,7 @@ namespace UltimateTicTacToe.Domain.Tests
             var game = new TicTacToeGame(new List<Move>());
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Cross,
                 BoardPosition = new Position(x, y),
@@ -135,7 +139,7 @@ namespace UltimateTicTacToe.Domain.Tests
             var game = new TicTacToeGame(new List<Move>());
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Cross,
                 BoardPosition = new Position(x, y),
@@ -160,7 +164,7 @@ namespace UltimateTicTacToe.Domain.Tests
             var game = new TicTacToeGame(new List<Move>());
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Cross,
                 BoardPosition = new Position(0, 0),
@@ -189,7 +193,7 @@ namespace UltimateTicTacToe.Domain.Tests
             var game = new TicTacToeGame(new List<Move>());
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Cross,
                 BoardPosition = new Position(0, 0),
@@ -212,7 +216,7 @@ namespace UltimateTicTacToe.Domain.Tests
 
             #region Moves of a finished Game
 
-            List<Move> movesForFinishedGame = new List<Move>
+            var movesForFinishedGame = new List<Move>
             {
                 new Move
                 {
@@ -340,7 +344,7 @@ namespace UltimateTicTacToe.Domain.Tests
             var game = new TicTacToeGame(movesForFinishedGame);
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Circle,
                 BoardPosition = new Position(2, 1),
@@ -371,7 +375,7 @@ namespace UltimateTicTacToe.Domain.Tests
             });
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Circle,
                 BoardPosition = new Position(0, 0),
@@ -406,7 +410,7 @@ namespace UltimateTicTacToe.Domain.Tests
             });
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Cross,
                 BoardPosition = new Position(2, 0),
@@ -435,7 +439,7 @@ namespace UltimateTicTacToe.Domain.Tests
             });
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Circle,
                 BoardPosition = new Position(2, 1),
@@ -492,11 +496,11 @@ namespace UltimateTicTacToe.Domain.Tests
             });
 
             // act
-            var result = game.Move(new Move
+            MoveResult result = game.Move(new Move
             {
                 Player = Player.Circle,
                 BoardPosition = new Position(0, 0),
-                TilePosition = new Position(0, 0),
+                TilePosition = new Position(1, 1),
                 MoveNumber = 2
             });
 

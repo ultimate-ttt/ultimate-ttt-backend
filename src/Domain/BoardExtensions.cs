@@ -24,8 +24,18 @@ namespace UltimateTicTacToe.Domain
             }
 
             // diagonals
-            yield return new List<TileInformation> {tiles[0][0], tiles[1][1], tiles[2][2]};
-            yield return new List<TileInformation> {tiles[2][0], tiles[1][1], tiles[0][2]};
+            yield return new List<TileInformation>
+            {
+                tiles[0][0],
+                tiles[1][1],
+                tiles[2][2]
+            };
+            yield return new List<TileInformation>
+            {
+                tiles[2][0],
+                tiles[1][1],
+                tiles[0][2]
+            };
         }
     }
 }

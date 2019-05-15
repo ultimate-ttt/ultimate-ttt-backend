@@ -67,7 +67,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 Mock.Of<IMoveValidator>());
 
             // act
-            var game = await gameManager.CreateGame(CancellationToken.None);
+            Game game = await gameManager.CreateGame(CancellationToken.None);
 
             // assert
             game.Id.Should().NotBeNullOrWhiteSpace();
@@ -79,7 +79,7 @@ namespace UltimateTicTacToe.Domain.Tests
         public async Task CreateGame_SavesGameInGameRepository()
         {
             // arrange
-            Mock<IGameRepository> gameRepositoryMock = new Mock<IGameRepository>();
+            var gameRepositoryMock = new Mock<IGameRepository>();
             gameRepositoryMock
                 .Setup(m => m.Save(It.IsAny<Game>(), CancellationToken.None))
                 .Returns(Task.CompletedTask)
@@ -89,7 +89,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 Mock.Of<IMoveValidator>());
 
             // act
-            var game = await gameManager.CreateGame(CancellationToken.None);
+            Game game = await gameManager.CreateGame(CancellationToken.None);
 
             // assert
             gameRepositoryMock.Verify(m => m.Save(It.IsAny<Game>(), CancellationToken.None),
@@ -103,21 +103,37 @@ namespace UltimateTicTacToe.Domain.Tests
             var move = new Move
             {
                 GameId = "abc",
-                BoardPosition = new Position {X = 1, Y = 0},
-                TilePosition = new Position {X = 0, Y = 0},
+                BoardPosition = new Position
+                {
+                    X = 1,
+                    Y = 0
+                },
+                TilePosition = new Position
+                {
+                    X = 0,
+                    Y = 0
+                },
                 Player = Player.Cross
             };
-            Mock<IGameRepository> gameRepositoryMock = new Mock<IGameRepository>();
+            var gameRepositoryMock = new Mock<IGameRepository>();
             gameRepositoryMock
                 .Setup(r => r.GetById("abc", CancellationToken.None))
-                .ReturnsAsync(new Game {Id = "abc", Winner = Winner.None});
+                .ReturnsAsync(new Game
+                {
+                    Id = "abc",
+                    Winner = Winner.None
+                });
 
-            Mock<IMoveValidator> moveValidatorMock = new Mock<IMoveValidator>();
+            var moveValidatorMock = new Mock<IMoveValidator>();
             moveValidatorMock
                 .Setup(m => m.ValidateMoveAsync(It.IsAny<Move>(), CancellationToken.None))
-                .ReturnsAsync(new MoveResult {IsValid = true, Move = move});
+                .ReturnsAsync(new MoveResult
+                {
+                    IsValid = true,
+                    Move = move
+                });
 
-            Mock<IMoveRepository> moveRepositoryMock = new Mock<IMoveRepository>();
+            var moveRepositoryMock = new Mock<IMoveRepository>();
             moveRepositoryMock
                 .Setup(m => m.GetMovesForGame(It.IsAny<string>(), CancellationToken.None))
                 .Returns(() => Task.FromResult(new List<Move>()))
@@ -131,7 +147,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 moveValidatorMock.Object);
 
             // act
-            var result =
+            MoveResult result =
                 await gameManager.Move(
                     move, CancellationToken.None);
 
@@ -148,11 +164,19 @@ namespace UltimateTicTacToe.Domain.Tests
             var move = new Move
             {
                 GameId = "abc",
-                BoardPosition = new Position {X = 1, Y = 0},
-                TilePosition = new Position {X = 0, Y = 0},
+                BoardPosition = new Position
+                {
+                    X = 1,
+                    Y = 0
+                },
+                TilePosition = new Position
+                {
+                    X = 0,
+                    Y = 0
+                },
                 Player = Player.Cross
             };
-            Mock<IGameRepository> gameRepositoryMock = new Mock<IGameRepository>();
+            var gameRepositoryMock = new Mock<IGameRepository>();
             gameRepositoryMock
                 .Setup(r => r.GetById("abc", CancellationToken.None))
                 .ReturnsAsync((Game)null);
@@ -164,7 +188,7 @@ namespace UltimateTicTacToe.Domain.Tests
                 Mock.Of<IMoveValidator>());
 
             // act
-            var result =
+            MoveResult result =
                 await gameManager.Move(
                     move, CancellationToken.None);
 

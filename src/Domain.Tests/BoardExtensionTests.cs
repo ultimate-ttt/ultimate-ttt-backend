@@ -13,10 +13,10 @@ namespace UltimateTicTacToe.Domain.Tests
             // arrange
             var board = new SmallTileInformation[3][];
 
-            for (int x = 0; x < 3; x++)
+            for (var x = 0; x < 3; x++)
             {
                 board[x] = new SmallTileInformation[3];
-                for (int y = 0; y < 3; y++)
+                for (var y = 0; y < 3; y++)
                 {
                     board[x][y] = new SmallTileInformation
                     {
@@ -40,10 +40,10 @@ namespace UltimateTicTacToe.Domain.Tests
             // arrange
             var board = new SmallBoardInformation[3][];
 
-            for (int x = 0; x < 3; x++)
+            for (var x = 0; x < 3; x++)
             {
                 board[x] = new SmallBoardInformation[3];
-                for (int y = 0; y < 3; y++)
+                for (var y = 0; y < 3; y++)
                 {
                     board[x][y] = new SmallBoardInformation
                     {

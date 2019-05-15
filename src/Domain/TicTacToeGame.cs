@@ -169,10 +169,10 @@ namespace UltimateTicTacToe.Domain
         private void InitializeBoard()
         {
             _board = new SmallBoardInformation[3][];
-            for (int x = 0; x < 3; x++)
+            for (var x = 0; x < 3; x++)
             {
                 _board[x] = new SmallBoardInformation[3];
-                for (int y = 0; y < 3; y++)
+                for (var y = 0; y < 3; y++)
                 {
                     _board[x][y] = new SmallBoardInformation
                     {
@@ -185,12 +185,12 @@ namespace UltimateTicTacToe.Domain
 
         private SmallTileInformation[][] GenerateTiles(int boardX, int boardY)
         {
-            SmallTileInformation[][] tiles = new SmallTileInformation[3][];
+            var tiles = new SmallTileInformation[3][];
 
-            for (int x = 0; x < 3; x++)
+            for (var x = 0; x < 3; x++)
             {
                 tiles[x] = new SmallTileInformation[3];
-                for (int y = 0; y < 3; y++)
+                for (var y = 0; y < 3; y++)
                 {
                     tiles[x][y] = new SmallTileInformation
                     {
@@ -205,10 +205,9 @@ namespace UltimateTicTacToe.Domain
 
         private void ApplyMoves(IEnumerable<Move> moves)
         {
-
             foreach (Move m in moves)
             {
-                var result = Move(m);
+                MoveResult result = Move(m);
 
                 if (!result.IsValid)
                 {
