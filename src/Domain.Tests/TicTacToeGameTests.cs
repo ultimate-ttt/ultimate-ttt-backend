@@ -50,7 +50,7 @@ namespace UltimateTicTacToe.Domain.Tests
         #region Correct Player at start
 
         [Fact]
-        public void Move_FistMoveByCircle_InvalidMove()
+        public void Move_FirstMoveByCircle_InvalidMove()
         {
             // arrange
             var game = new TicTacToeGame(new List<Move>());
@@ -70,7 +70,7 @@ namespace UltimateTicTacToe.Domain.Tests
         }
 
         [Fact]
-        public void Move_FistMoveByCross_ValidMove()
+        public void Move_FirstMoveByCross_ValidMove()
         {
             // arrange
             var game = new TicTacToeGame(new List<Move>());
