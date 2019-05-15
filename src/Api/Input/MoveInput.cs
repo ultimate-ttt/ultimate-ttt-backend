@@ -1,8 +1,7 @@
-using System;
 using HotChocolate;
 using UltimateTicTacToe.Abstractions;
 
-namespace UltimateTicTacToe.Api
+namespace UltimateTicTacToe.Api.Input
 {
     public class MoveInput
     {

@@ -52,6 +52,7 @@ Task("Build")
 });
 
 Task("Test")
+    .ContinueOnError()
     .IsDependentOn("Build")
     .Does(() =>
 {

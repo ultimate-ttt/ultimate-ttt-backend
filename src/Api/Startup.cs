@@ -30,7 +30,7 @@ namespace UltimateTicTacToe.Api
 
             //services.AddInMemorySubscriptionProvider();
 
-            var schema = Schema.Create(c =>
+            Schema schema = Schema.Create(c =>
             {
                 //GraphQL Types
                 c.RegisterQueryType<QueryType>();
@@ -46,7 +46,8 @@ namespace UltimateTicTacToe.Api
                 c.UseDefaultPipeline(new QueryExecutionOptions
                     {
 #if DEBUG
-                        TracingPreference = TracingPreference.Always, IncludeExceptionDetails = true
+                        TracingPreference = TracingPreference.Always,
+                        IncludeExceptionDetails = true
 #endif
                     })
                     .AddCustomErrorFilters()));

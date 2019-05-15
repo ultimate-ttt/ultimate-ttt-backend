@@ -13,7 +13,7 @@ namespace UltimateTicTacToe.Api
             string id,
             [Service] IGameRepository gameRepository,
             CancellationToken cancellationToken
-            )
+        )
         {
             return await gameRepository.GetById(id, cancellationToken);
         }

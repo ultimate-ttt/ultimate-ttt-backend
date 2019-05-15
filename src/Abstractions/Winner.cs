@@ -1,10 +1,10 @@
 namespace UltimateTicTacToe.Abstractions
 {
-    public enum TileValue
+    public enum Winner
     {
         Cross = 0,
         Circle = 1,
-        Empty = 2,
-        Destroyed = 3
+        None = 2,
+        Draw = 3
     }
 }

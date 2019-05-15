@@ -31,7 +31,7 @@ namespace UltimateTicTacToe.Data
             await _gameCollection
                 .InsertOneAsync(
                     game,
-                    options: null,
+                    null,
                     cancellationToken);
         }
     }

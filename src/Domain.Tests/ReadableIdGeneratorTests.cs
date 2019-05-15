@@ -1,8 +1,7 @@
 using FluentAssertions;
-using UltimateTicTacToe.Domain;
 using Xunit;
 
-namespace Domain.Tests
+namespace UltimateTicTacToe.Domain.Tests
 {
     public class ReadableIdGeneratorTests
     {
@@ -11,10 +10,10 @@ namespace Domain.Tests
         {
             // arrange
 
-            //act
+            // act
             var id = ReadableIdGenerator.NewId();
 
-            //assert
+            // assert
             id.Should().NotBeNullOrWhiteSpace();
         }
     }

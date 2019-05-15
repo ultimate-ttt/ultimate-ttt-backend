@@ -12,16 +12,29 @@ namespace UltimateTicTacToe.Domain
     {
         private readonly IGameRepository _gameRepository;
         private readonly IMoveRepository _moveRepository;
+        private readonly IMoveValidator _moveValidator;
 
-        public GameManager(IGameRepository gameRepository, IMoveRepository moveRepository)
+        public GameManager(
+            IGameRepository gameRepository,
+            IMoveRepository moveRepository,
+            IMoveValidator moveValidator)
         {
-            _gameRepository = gameRepository ?? throw new ArgumentNullException(nameof(gameRepository));
-            _moveRepository = moveRepository ?? throw new ArgumentNullException(nameof(moveRepository));
+            _gameRepository = gameRepository
+                              ?? throw new ArgumentNullException(nameof(gameRepository));
+            _moveRepository = moveRepository
+                              ?? throw new ArgumentNullException(nameof(moveRepository));
+            _moveValidator = moveValidator
+                             ?? throw new ArgumentNullException(nameof(moveValidator));
         }
 
         public async Task<Game> CreateGame(CancellationToken cancellationToken)
         {
-            Game g = new Game {Id = ReadableIdGenerator.NewId(), Winner = null, FinishedAt = null,};
+            var g = new Game
+            {
+                Id = ReadableIdGenerator.NewId(),
+                Winner = null,
+                FinishedAt = null,
+            };
 
             await _gameRepository.Save(g, cancellationToken);
 
@@ -30,33 +43,29 @@ namespace UltimateTicTacToe.Domain
 
         public async Task<MoveResult> Move(Move m, CancellationToken cancellationToken)
         {
-            m.MoveNumber = await GetNextMoveNumber(m.GameId, cancellationToken);
-
-            bool isValidMove = await IsValidMove(m, cancellationToken);
-            if (isValidMove)
+            if (!await IsGameExistentAsync(m.GameId, cancellationToken))
             {
-                await _moveRepository.Save(m, cancellationToken);
+                return new MoveResult
+                {
+                    Move = m,
+                    IsValid = false
+                };
             }
 
-            return new MoveResult
+            MoveResult result = await _moveValidator.ValidateMoveAsync(m, cancellationToken);
+
+            if (result.IsValid)
             {
-                IsValid = isValidMove,
-                Move = m
-            };
+                await _moveRepository.Save(result.Move, cancellationToken);
+            }
+
+            return result;
         }
 
-        private async Task<int> GetNextMoveNumber(string gameId, CancellationToken
-            cancellationToken)
+        private async Task<bool> IsGameExistentAsync(string id, CancellationToken ctx)
         {
-            List<Move> moves = await _moveRepository.GetMovesForGame(gameId, cancellationToken);
-
-            return moves.Count + 1;
-        }
-
-        private async Task<bool> IsValidMove(Move m, CancellationToken cancellationToken)
-        {
-            //TODO: implement
-            return true;
+            Game game = await _gameRepository.GetById(id, ctx);
+            return game != null;
         }
     }
 }

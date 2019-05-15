@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using HotChocolate;
 using UltimateTicTacToe.Abstractions;
+using UltimateTicTacToe.Api.Input;
 using UltimateTicTacToe.Domain.Abstractions;
 
 namespace UltimateTicTacToe.Api
