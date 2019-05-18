@@ -3,7 +3,9 @@ using Snapshooter.Xunit;
 using HotChocolate.Types;
 using UltimateTicTacToe.Api.Types;
 
-namespace UltimateTicTacToe.Apiclass SchemaBuilderTests
+namespace UltimateTicTacToe.Api.Tests
+{
+    public class SchemaBuilderTests
     {
         [Fact]
         public void Ensure_Schema_IsCorrect()
