@@ -29,20 +29,7 @@ namespace UltimateTicTacToe.Api
 
             //services.AddInMemorySubscriptionProvider();
 
-            Schema schema = Schema.Create(c =>
-            {
-                //GraphQL Types
-                c.RegisterQueryType<QueryType>();
-                c.RegisterMutationType<MutationType>();
-                // c.RegisterSubscriptionType<SubscriptionType>();
-                c.RegisterExtendedScalarTypes();
-
-                //Custom Types
-                c.RegisterType<GameType>();
-                c.RegisterType<MoveType>();
-                c.RegisterType<PositionType>();
-                c.RegisterType<MoveResultType>();
-            });
+            Schema schema = SchemaBuilder.BuildSchema();
 
             services.AddGraphQL(schema.MakeExecutable(c =>
                 c.UseDefaultPipeline(new QueryExecutionOptions
