@@ -16,13 +16,6 @@ namespace UltimateTicTacToe.Api.Types
                 .Field(m => m.Player)
                 .Type<NonNullType<EnumType<Player>>>();
 
-            descriptor
-                .Field(m => m.BoardPosition)
-                .Type<NonNullType>();
-
-            descriptor
-                .Field(m => m.TilePosition)
-                .Type<NonNullType>();
         }
     }
 }
