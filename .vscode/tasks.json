@@ -28,7 +28,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/src/Api/Api.csproj"
+                "--project ${workspaceFolder}/src/Api/Api.csproj"
             ],
             "problemMatcher": "$tsc"
         }

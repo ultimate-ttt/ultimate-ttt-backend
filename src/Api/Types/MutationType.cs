@@ -9,6 +9,15 @@ namespace UltimateTicTacToe.Api.Types
         {
             descriptor.Name("Mutation");
             descriptor.BindFields(BindingBehavior.Implicit);
+
+            descriptor
+                .Field(m => m.CreateGame(default, default))
+                .Type<NonNullType<GameType>>();
+
+            descriptor
+                .Field(m => m.Move(default, default, default))
+                .Argument("input", a => a.Type<>)
+                .Type<NonNullType<MoveResultType>>();
         }
     }
 }

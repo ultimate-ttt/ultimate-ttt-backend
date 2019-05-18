@@ -40,6 +40,9 @@ namespace UltimateTicTacToe.Api
 
                 //Custom Types
                 c.RegisterType<GameType>();
+                c.RegisterType<MoveType>();
+                c.RegisterType<PositionType>();
+                c.RegisterType<MoveResultType>();
             });
 
             services.AddGraphQL(schema.MakeExecutable(c =>
