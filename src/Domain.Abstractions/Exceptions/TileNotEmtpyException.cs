@@ -1,5 +1,3 @@
-using System;
-
 namespace UltimateTicTacToe.Domain.Abstractions.Exceptions
 {
     public class TileNotEmptyException : InvalidMoveException
