@@ -1,5 +1,6 @@
 using HotChocolate.Types;
 using UltimateTicTacToe.Abstractions;
+using UltimateTicTacToe.Data.Abstractions;
 
 namespace UltimateTicTacToe.Api.Types
 {
@@ -31,6 +32,17 @@ namespace UltimateTicTacToe.Api.Types
             descriptor
                 .Field(m => m.MoveNumber)
                 .Type<NonNullType<IntType>>();
+
+            descriptor
+                .Field("game")
+                .Type<NonNullType<GameType>>()
+                .Resolver(async r =>
+                {
+                    var gameId = r.Parent<Move>().GameId;
+                    var gameRepository = r.Service<IGameRepository>();
+
+                    return await gameRepository.GetById(gameId, r.RequestAborted);
+                });
         }
     }
 }

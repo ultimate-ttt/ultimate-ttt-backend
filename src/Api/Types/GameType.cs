@@ -1,4 +1,3 @@
-using System;
 using HotChocolate.Types;
 using UltimateTicTacToe.Abstractions;
 using UltimateTicTacToe.Data.Abstractions;
