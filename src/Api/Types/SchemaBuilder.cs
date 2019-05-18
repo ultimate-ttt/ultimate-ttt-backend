@@ -11,7 +11,6 @@ namespace UltimateTicTacToe.Api.Types
                 //GraphQL Types
                 c.RegisterQueryType<QueryType>();
                 c.RegisterMutationType<MutationType>();
-                // TODO: add this line to support subscription c.RegisterSubscriptionType<SubscriptionType>();
                 c.RegisterExtendedScalarTypes();
 
                 //Custom Types
