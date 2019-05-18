@@ -31,8 +31,6 @@ namespace UltimateTicTacToe.Api.Types
             descriptor
                 .Field(m => m.MoveNumber)
                 .Type<NonNullType<IntType>>();
-
-
         }
     }
 }

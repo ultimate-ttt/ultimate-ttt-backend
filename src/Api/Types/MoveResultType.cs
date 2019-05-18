@@ -6,7 +6,7 @@ namespace UltimateTicTacToe.Api.Types
     public class MoveResultType : ObjectType<MoveResult>
     {
         protected override void Configure(
-           IObjectTypeDescriptor<MoveResult> descriptor)
+            IObjectTypeDescriptor<MoveResult> descriptor)
         {
             descriptor
                 .Field(m => m.IsValid)
