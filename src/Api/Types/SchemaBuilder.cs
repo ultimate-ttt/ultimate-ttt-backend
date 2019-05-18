@@ -2,7 +2,7 @@ using HotChocolate;
 
 namespace UltimateTicTacToe.Api.Types
 {
-    public class SchemaBuilder
+    public static class SchemaBuilder
     {
         public static Schema BuildSchema()
         {
@@ -11,7 +11,7 @@ namespace UltimateTicTacToe.Api.Types
                 //GraphQL Types
                 c.RegisterQueryType<QueryType>();
                 c.RegisterMutationType<MutationType>();
-                // c.RegisterSubscriptionType<SubscriptionType>();
+                // TODO: add this line to support subscription c.RegisterSubscriptionType<SubscriptionType>();
                 c.RegisterExtendedScalarTypes();
 
                 //Custom Types
