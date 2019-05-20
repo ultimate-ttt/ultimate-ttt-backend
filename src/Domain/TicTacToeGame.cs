@@ -211,10 +211,7 @@ namespace UltimateTicTacToe.Domain
 
                 if (!result.IsValid)
                 {
-                    throw new InvalidInitializationException(m.MoveNumber)
-                    {
-                        MoveResult = result
-                    };
+                    throw new InvalidInitializationException(m.MoveNumber) {MoveResult = result};
                 }
             }
         }
