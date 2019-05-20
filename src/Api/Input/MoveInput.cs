@@ -6,11 +6,14 @@ namespace UltimateTicTacToe.Api.Input
     public class MoveInput
     {
         public string GameId { get; set; }
+
+        [GraphQLNonNullType]
         public Position BoardPosition { get; set; }
+
+        [GraphQLNonNullType]
         public Position TilePosition { get; set; }
         public Player Player { get; set; }
 
-        [GraphQLIgnore]
         public Move ToMove()
         {
             return new Move
