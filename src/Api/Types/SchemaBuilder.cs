@@ -8,12 +8,12 @@ namespace UltimateTicTacToe.Api.Types
         {
             return Schema.Create(c =>
             {
-                //GraphQL Types
+                // GraphQL Types
                 c.RegisterQueryType<QueryType>();
                 c.RegisterMutationType<MutationType>();
                 c.RegisterExtendedScalarTypes();
 
-                //Custom Types
+                // Custom Types
                 c.RegisterType<GameType>();
                 c.RegisterType<MoveType>();
                 c.RegisterType<PositionType>();
