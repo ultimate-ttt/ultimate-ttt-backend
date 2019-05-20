@@ -5,7 +5,7 @@ namespace UltimateTicTacToe.Api
 {
     public class Subscription
     {
-        public Move onMove(IEventMessage message, string gameId, Player player)
+        public Move OnMove(IEventMessage message, string gameId, Player player)
         {
             return (Move)message.Payload;
         }
