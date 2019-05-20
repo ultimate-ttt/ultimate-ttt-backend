@@ -15,7 +15,7 @@ namespace UltimateTicTacToe.Api.Types
                 .Type<NonNullType<GameType>>();
 
             descriptor
-                .Field(m => m.Move(default, default, default))
+                .Field(m => m.Move(default, default, default, default))
                 .Argument("input", a => a.Type<NonNullType<MoveInputType>>())
                 .Type<NonNullType<MoveResultType>>();
         }

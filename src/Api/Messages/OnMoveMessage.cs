@@ -5,9 +5,9 @@ using UltimateTicTacToe.Abstractions;
 
 namespace UltimateTicTacToe.Api.Messages
 {
-    public class OnUserUpdatedMessage : EventMessage
+    public class OnMoveMessage : EventMessage
     {
-        public OnUserUpdatedMessage(Move move)
+        public OnMoveMessage(Move move)
             : base(CreateEventDescription(move), move)
         {
         }
