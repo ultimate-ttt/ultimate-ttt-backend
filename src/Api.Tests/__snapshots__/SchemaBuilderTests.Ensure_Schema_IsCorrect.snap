@@ -1,6 +1,7 @@
 ﻿schema {
   query: Query
   mutation: Mutation
+  subscription: Subscription
 }
 
 type Game {
@@ -22,7 +23,7 @@ type Move {
 type MoveResult {
   isValid: Boolean!
   move: Move!
-  invalidReason: String!
+  invalidReason: String
   moveFinishedBoard: Boolean!
   moveFinishedGame: Boolean!
 }
@@ -40,6 +41,10 @@ type Position {
 
 type Query {
   game(id: ID!): Game
+}
+
+type Subscription {
+  onMove(gameId: String! player: Player!): Move!
 }
 
 input MoveInput {
