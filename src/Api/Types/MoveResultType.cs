@@ -18,7 +18,7 @@ namespace UltimateTicTacToe.Api.Types
 
             descriptor
                 .Field(m => m.InvalidReason)
-                .Type<NonNullType<StringType>>();
+                .Type<StringType>();
 
             descriptor
                 .Field(m => m.MoveFinishedBoard)
