@@ -100,7 +100,7 @@ namespace UltimateTicTacToe.Api.Tests
         }
 
         [Fact]
-        public async Task Move_validInput_CallsGameManager()
+        public async Task Move_ValidInput_CallsGameManager()
         {
             // arrange
             var moveInput = new MoveInput
