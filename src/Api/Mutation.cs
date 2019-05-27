@@ -26,7 +26,7 @@ namespace UltimateTicTacToe.Api
             CancellationToken cancellationToken
         )
         {
-            var result = await gameManager.Move(input.ToMove(), cancellationToken);
+            MoveResult result = await gameManager.Move(input.ToMove(), cancellationToken);
 
             if (result.IsValid)
             {
