@@ -15,9 +15,8 @@ namespace UltimateTicTacToe.Api.Messages
         private static EventDescription CreateEventDescription(Move move)
         {
             return new EventDescription("onMove",   new[] {
-               new ArgumentNode("gameId", move.GameId),
+                new ArgumentNode("gameId", move.GameId),
                 new ArgumentNode("player", new EnumValueNode( move.Player))
-
             });
         }
     }
