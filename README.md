@@ -126,4 +126,25 @@ query GameStatus{
 
 ## Live updates
 
-Subscriptions are not implemented yet. Visit [#5](https://github.com/ultimate-ttt/ultimate-ttt-backend/issues/5) for more information.
+In order to get notified of the opponents moves you have to specify 2 things.
+
+*gameId*: The Id of the game you are playing
+
+*player*: The player of which you want to receive the moves
+
+```graphql
+subscription onOpponentMoved {
+  onMove(gameId: "AAYfPSa", player: CROSS) {
+    moveNumber
+    boardPosition{
+      x
+      y
+    }
+    tilePosition{
+      x
+      y
+    }
+    player
+  }
+}
+```
