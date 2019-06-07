@@ -210,7 +210,7 @@ namespace UltimateTicTacToe.Domain.Tests
         #region Game Finished
 
         [Fact]
-        private void Move_GameFinished_NoMovePossible()
+        public void Move_GameFinished_NoMovePossible()
         {
             // arrange
 
