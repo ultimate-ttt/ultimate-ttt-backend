@@ -11,6 +11,7 @@ using UltimateTicTacToe.Api.ErrorFilters;
 using UltimateTicTacToe.Api.Types;
 using UltimateTicTacToe.Data;
 using UltimateTicTacToe.Domain;
+using SchemaBuilder = UltimateTicTacToe.Api.Types.SchemaBuilder;
 
 namespace UltimateTicTacToe.Api
 {
